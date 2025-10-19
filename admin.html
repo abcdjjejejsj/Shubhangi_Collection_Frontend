@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Shubhangi Collection</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="admin_styles.css">
+</head>
+<script src="./config.js"></script>
+<body id="bb">
+    <div id="dashboardContent">
+        <header class="header">
+            <a href="#" class="logo">
+                Admin Panel
+                <span>Dashboard</span>
+            </a>
+            <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">☰</div>
+            <nav>
+                <ul class="admin-nav">
+                    <li><a href="#dashboard" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#products"><i class="fas fa-box"></i> Products</a></li>
+                    <li><a href="#categories"><i class="fas fa-tags"></i> Categories</a></li>
+                    <li><a href="#orders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                    <li><a href="#customers"><i class="fas fa-users"></i> Customers</a></li>
+                    <li><a href="#appointments"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                    <li><a href="#discounts"><i class="fas fa-percent"></i> Discounts</a></li>
+                    <li><a href="#messages"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <!-- <li><a href="#admin-settings"><i class="fas fa-cog"></i> Settings</a></li> -->
+                    <!-- <li><a href="/api/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li> -->
+                    <li><a href="/api/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                </ul>
+            </nav>
+            <div class="admin-profile">
+                <span>Admin User</span>
+                <img src="https://via.placeholder.com/40" alt="Admin Profile Picture">
+            </div>
+        </header>
+
+        <main class="container">
+            <section id="dashboard" class="admin-section">
+                <h2>Dashboard Overview</h2>
+                <div class="dashboard-overview">
+                    <div class="stat-card">
+                        <i class="fas fa-box-open icon"></i>
+                        <h3><span id="totalProducts">0</span></h3>
+                        <p>Total Products</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users icon"></i>
+                        <h3><span id="totalCustomers">0</span></h3>
+                        <p>Total Customers</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-bag icon"></i>
+                        <h3><span id="totalOrders">0</span></h3>
+                        <p>Total Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-indian-rupee-sign icon"></i>
+                        <h3><span id="totalRevenue">0</span></h3>
+                        <p>Total Revenue</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-alt icon"></i>
+                        <h3><span id="pendingAppointments">0</span></h3>
+                        <p>Pending Appointments</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-envelope icon"></i>
+                        <h3><span id="newMessages">0</span></h3>
+                        <p>New Messages</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="products" class="admin-section">
+                <div class="section-header">
+                    <h2>Product Management</h2>
+                    <button class="btn btn-primary" onclick="ProductForm()"><i class="fas fa-plus"></i> Add
+                        Product</button>
+                </div>
+
+                <form id="addProductForm" class="admin-form" style="display: none;">
+                    <h3>Add New Product</h3>
+                    <div class="form-group">
+                        <label for="newProductId">Product ID</label>
+                        <input type="text" id="newProductId" placeholder="e.g., #P004" name="Product_ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newProductName">Product Name</label>
+                        <input type="text" name="Product_Name" id="newProductName" placeholder="Enter product name"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newProductCategory">Category</label>
+                        <input type="text" name="Product_Category" id="newProductCategory"
+                            placeholder="e.g., Electronics, Apparel" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newProductPrice">Price</label>
+                        <input type="number" name="Product_Price" id="newProductPrice" placeholder="Enter price"
+                            step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newProductStock">Stock Quantity</label>
+                        <input type="number" name="Product_Stock" id="newProductStock"
+                            placeholder="Enter stock quantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trending">Trending</label>
+                        <!-- <input type="number" id="newProductStock" placeholder="Enter stock quantity" required> -->
+                        <select id="trend" name="Product_Trend">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="newProductImage">Product Status</label>
+                        <select id="status" name="Product_Status">
+                            <option value="active">active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="newProductImage">Product Image</label>
+                        <input type="file" id="newProductImage" name="Product_Image">
+                    </div> -->
+                    <div class="form-group">
+                        <label for="newProductImages">Product Images</label>
+                        <input type="file" id="newProductImages" name="Product_Images" multiple accept="image/*">
+                        <small>You can select multiple images</small>
+                    </div>
+
+                    <div class="form-actions" id="form-actions-btn" style="display:flex;gap:5px">
+                        <button type="button" class="btn btn-secondary cancel-btn"
+                            onclick="hideAddProductForm()">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="save" onclick="saveProduct()">Save
+                            Product</button>
+                        <button type="button" class="btn btn-primary" id="saveChanges">Update Product</button>
+
+                        <!-- <button type="button" class="btn btn-primary">Save Product</button> -->
+                    </div>
+                </form>
+
+                <table id="productsTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product</th>
+
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Trending</th>
+                            <th>Status</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTable">
+
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="categories" class="admin-section">
+                <div class="section-header">
+                    <h2>Category Management</h2>
+                    <button class="btn btn-primary" onclick="CategoryForm()"><i class="fas fa-plus"></i> Add
+                        Category</button>
+                </div>
+
+                <form id="addCategoryForm" class="admin-form" style="display: none;">
+                    <h3>Add New Category</h3>
+                    <div class="form-group">
+                        <label for="newCategoryName">Category Name</label>
+                        <input type="text" id="newCategoryName" placeholder="e.g., Jewelry, Makeup" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newCategoryType">Category Type</label>
+                        <select id="newCategoryType" required>
+                            <option value="Product">Product</option>
+                            <option value="Service">Service (Beauty Parlour)</option>
+                        </select>
+                    </div>
+                    <div class="form-actions" style="display:flex;flex-wrap:wrap;gap:2px;">
+                        <button type="button" class="btn btn-secondary cancel-btn"
+                            onclick="hideAddCategoryForm()">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="saveCat" onclick="saveCategory()">Save
+                            Category</button>
+                        <button type="button" class="btn btn-primary" id="updateCat">Update Category</button>
+                    </div>
+                </form>
+
+                <table id="categoriesTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Category Name</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoryTable">
+
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="orders" class="admin-section">
+                <h2>Order Management</h2>
+
+                <form id="editOrderForm" class="admin-form" style="display: none;">
+                    <h3>Edit Order</h3>
+                    <input type="hidden" id="editOrderIdHidden">
+                    <div class="form-group">
+                        <label for="editOrderCustomer">Customer Name</label>
+                        <input type="text" id="editOrderCustomer">
+                    </div>
+                    <div class="form-group">
+                        <label for="editOrderDate">Order Date</label>
+                        <input type="date" id="editOrderDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="editOrderTotal">Total Amount ()</label>
+                        <input type="number" id="editOrderTotal" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="editOrderStatus">Status</label>
+                        <select id="editOrderStatus">
+                            <option value="Pending">Pending</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary cancel-btn"
+                            onclick="hideEditOrderForm()">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="saveOrderChanges()">Save Changes</button>
+                    </div>
+                </form>
+
+                <!-- <table id="ordersTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Products</th>
+                            <th>Total</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Order ID">#ORD001</td>
+                            <td data-label="Customer">John Doe</td>
+                            <td>Har,bangdya</td>
+                            <td data-label="Total">150.00</td>
+                            <td data-label="Order Date">2024-07-28</td>
+                            <td data-label="Status"><span class="status-badge completed">Completed</span></td>
+                            <td data-label="Actions" class="action-buttons">
+                                <button class="btn btn-secondary edit-order-btn">Edit</button>
+                                <button class="btn btn-primary delete-order-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Order ID">#ORD002</td>
+                            <td data-label="Customer">Jane Smith</td>
+                            <td data-label="Order Date">2024-07-27</td>
+                            <td data-label="Total">75.00</td>
+                            <td data-label="Status"><span class="status-badge pending">Pending</span></td>
+                            <td data-label="Actions" class="action-buttons">
+                                <button class="btn btn-secondary edit-order-btn">Edit</button>
+                                <button class="btn btn-primary delete-order-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Order ID">#ORD003</td>
+                            <td data-label="Customer">Peter Jones</td>
+                            <td data-label="Order Date">2024-07-26</td>
+                            <td data-label="Total">220.00</td>
+                            <td data-label="Status"><span class="status-badge shipped">Shipped</span></td>
+                            <td data-label="Actions" class="action-buttons">
+                                <button class="btn btn-secondary edit-order-btn">Edit</button>
+                                <button class="btn btn-primary delete-order-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <table id="ordersTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Order Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody">
+                        <!-- Orders will be dynamically injected -->
+                    </tbody>
+                </table>
+
+
+
+            </section>
+
+            <section id="customers" class="admin-section">
+                <h2>Customer Management</h2>
+                <table id="customersTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Sr.no</th>
+                            <th style="text-align: center;">Name</th>
+                            <th style="text-align: center;">Email</th>
+                            <th style="text-align: center;">Mobile no</th>
+                            <th style="text-align: center;">Registered Date</th>
+                            <th style="text-align: center;">Address</th>
+                            <th style="text-align: center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerTable">
+
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="appointments" class="admin-section">
+                <div class="section-header">
+                    <h2>Appointments / Bookings</h2>
+                    <!-- <button class="btn btn-primary" onclick="showAddAppointmentForm()"><i class="fas fa-plus"></i> Add Appointment</button> -->
+                </div>
+
+                <form id="addAppointmentForm" class="admin-form" style="display: none;">
+                    <h3>Add New Appointment</h3>
+                    <div class="form-group">
+                        <label for="beauty">Beautician Name</label>
+                        <input type="text" id="beauty" name="beauty" placeholder="Enter Beautician name" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary cancel-btn"
+                            onclick="hideAddAppointmentForm()">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="parlorSave">Add Beautician</button>
+                    </div>
+                </form>
+
+                <div class="table-responsive">
+                    <table id="appointmentsTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Sr.no</th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>mobile number</th>
+                                <th>Service</th>
+                                <th>Beautician</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appTable">
+                            <!-- <tr>
+                                <td data-label="Sr.no">1</td>
+                                <td data-label="Customer Name">Saniya</td>
+                                <td data-label="mobile number">4578324156</td>
+                                <td data-label="Service">Hair</td>
+                                <td data-label="Beautician">Mirza</td>
+                                <td data-label="Date">12/02/2025</td>
+                                <td data-label="Time">09:45 PM</td>
+                                <td data-label="Message">I m coming</td>
+                                <td data-label="Status">Pending</td>
+                                <td data-label="Action" style="display:flex;flex-wrap:wrap;gap:2px;">
+                                    <button class="btn btn-secondary view-orders-btn">Completed</button>
+                                    <button onclick="showAddAppointmentForm()" class="btn btn-primary mark-replied-btn">Add Beautician</button>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="discounts" class="admin-section">
+                <div class="section-header">
+                    <h2>Discount Codes</h2>
+                    <button class="btn btn-primary" onclick="showAddDiscountForm()"><i class="fas fa-plus"></i> Add
+                        Discount</button>
+                </div>
+
+                <form id="discountForm" class="admin-form" style="display: none;">
+                    <h3>Add/Edit Discount Code</h3>
+                    <input type="hidden" id="discountIdHidden">
+                    <div class="form-group">
+                        <label for="discountCode">Discount Code</label>
+                        <input type="text" id="discountCode" placeholder="e.g., SAVE15" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="discountType">Type</label>
+                        <select id="discountType" required>
+                            <option value="Percentage">Percentage</option>
+                            <option value="Fixed Amount">Fixed Amount</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="discountValue">Value</label>
+                        <input type="text" id="discountValue" placeholder="e.g., 15% or 10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="discountMinPurchase">Minimum Purchase ()</label>
+                        <input type="number" id="discountMinPurchase" placeholder="e.g., 50.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="discountExpiry">Expiry Date</label>
+                        <input type="date" id="discountExpiry" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary cancel-btn"
+                            onclick="hideDiscountForm()">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="saveDiscount()"
+                            id="saveDiscountButton">Save Discount</button>
+                    </div>
+                </form>
+
+                <table id="discountsTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Type</th>
+                            <th>Value</th>
+                            <th>Min. Purchase</th>
+                            <th>Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="disBody">
+                        <tr>
+                            <td data-label="Code">SAVE10</td>
+
+
+                            <td data-label="Type">Percentage</td>
+                            <td data-label="Value">10%</td>
+                            <td data-label="Min. Purchase">50.00</td>
+                            <td data-label="Expiry Date">2024-12-31</td>
+                            <td data-label="Actions" class="action-buttons">
+                                <button class="btn btn-secondary edit-discount-btn">Edit</button>
+                                <button class="btn btn-primary delete-discount-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Code">FREESHIP</td>
+
+                            <td data-label="Type">Fixed Amount</td>
+                            <td data-label="Value">Free Shipping</td>
+                            <td data-label="Min. Purchase">0.00</td>
+                            <td data-label="Expiry Date">2025-01-31</td>
+                            <td data-label="Actions" class="action-buttons">
+                                <button class="btn btn-secondary edit-discount-btn">Edit</button>
+                                <button class="btn btn-primary delete-discount-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="messages" class="admin-section">
+                <h2>Contact Messages</h2>
+                <table id="messagesTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sender Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Received Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mesgTable">
+
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="website-content" class="admin-section">
+                <h2>Website Content Management</h2>
+                <form id="websiteContentForm" class="admin-form">
+                    <h3>Home Page Content</h3>
+                    <div class="form-group">
+                        <label for="heroLine">Hero Line</label>
+                        <input type="text" id="heroLine" name="heroLine" placeholder="Discover your signature style"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subHeroLine">Sub Hero Line</label>
+                        <input type="text" id="subHeroLine" name="subHeroLine"
+                            placeholder="Elegance and quality in every piece" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aboutUs">About Us</label>
+                        <textarea id="aboutUs" name="aboutUs" rows="3"
+                            placeholder="Shubhangi Collection is your destination for elegant and modern accessories..."></textarea>
+                    </div>
+
+                    <h3>Contact Details</h3>
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" name="contactEmail"
+                            placeholder="info@shubhangicollection.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactPhone">Phone</label>
+                        <input type="text" id="contactPhone" name="contactPhone" placeholder="+91 93704 70692" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactAddress">Address</label>
+                        <textarea id="contactAddress" name="contactAddress" rows="2"
+                            placeholder="Enter shop address"></textarea>
+                    </div>
+<!-- 
+                    <div class="form-group">
+                        <label for="socialProfile">Social Profile Links</label>
+                        <textarea id="socialProfile" name="socialProfile" rows="2"
+                            placeholder="Facebook: ..., Instagram: ..., etc."></textarea>
+                    </div> -->
+
+                    <h3>Branding</h3>
+                    <div class="form-group">
+                        <label for="shopName">Shop Name</label>
+                        <input type="text" id="shopName" name="shopName" placeholder="Shubhangi Collection" required>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label for="logoFile">Upload Logo (Image)</label>
+                        <input type="file" id="logoFile" name="logoFile">
+                    </div> -->
+
+                    <div class="form-group">
+                        <label for="logoText">Logo Text</label>
+                        <input type="text" id="logoText" name="logoText" placeholder="Enter text logo">
+                        <p id="currentLogoStatus" class="mt-2 text-xs text-gray-500">No logo uploaded yet, or using text.</p>
+                    </div>
+
+
+                    <div class="form-actions" style="display:flex;gap:20px;flex-wrap: wrap;">
+                        <button type="button" class="btn btn-primary" onclick="saveWebsiteContent()">Save
+                            Content</button>
+                        <a href="/"><button type="button" class="btn btn-primary">Visit Website</button></a>
+                    </div>
+                </form>
+            </section>
+
+
+        </main>
+    </div>
+
+    <script>
+        function togglelink() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('active');
+        }
+
+        // Add other JS functions here like showAddProductForm(), saveProduct(), etc.
+        // For this example, we'll only focus on the toggle and CSS fixes.
+    </script>
+    <script src="admin.js"></script>
+    <div id="overlay" class="overlay"></div>
+    <!-- Order Modal -->
+    <div id="orderModal" class="popup" style="display:none;z-index: 2000;">
+        <div class="popup-content" id="orderPop">
+            <span class="close-btn" onclick="closeOrderModal()">&times;</span>
+
+            <h3 style="color:var(--primary-accent); margin-bottom:15px;">Order Details</h3>
+            <div id="orderInfo" style="text-align:left; margin-bottom:20px;"></div>
+            <input type="hidden" id="modalOrderIdHidden">
+            <input type="hidden" id="del_code">
+
+            <h4 style="margin-bottom:10px;">Ordered Items</h4>
+            <table border="2">
+                <thead>
+                    <tr id="row">
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody id="orderItemsBody"></tbody>
+            </table>
+
+            <div class="order-summary" style="margin-top:20px; text-align:left;">
+                <p><strong>Total:</strong> ₹<span id="orderTotal"></span></p>
+                <p><strong>Payment Status:</strong>
+                    <span id="paymentStatus" class="status-badge"></span>
+                </p>
+            </div>
+
+            <div class="form-group" style="margin-top:15px;">
+                <label for="statusSelect">Change Order Status:</label>
+                <select id="statusSelect" class="admin-form"
+                    style="padding:10px;background-color: white;border-radius:5px">
+                    <option value="Pending">Pending</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" id="sss" onclick="updateOrderStatus()">Save</button>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<!-- onclick="updateOrderStatus()" -->

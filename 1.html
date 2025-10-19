@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    .wishlist-icon1 {
+      font-size: 1.4rem;
+      color: #fc1010;
+      /* default color */
+      cursor: pointer;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    .wishlist-icon1.active {
+      color: #FF5722;
+      /* filled color */
+    }
+  </style>
+</head>
+
+<body>
+  <a href="contact.html">
+    <button>click</button><br><br><br><br><br>
+  </a>
+
+  <!-- Example: multiple hearts -->
+  <i class="far fa-heart wishlist-icon1"></i>
+  <i class="far fa-heart wishlist-icon1"></i>
+  <i class="far fa-heart wishlist-icon1"></i>
+
+  <script>
+    const hearts = document.querySelectorAll('.wishlist-icon1');
+
+    hearts.forEach(heart => {
+      heart.addEventListener('click', () => {
+        heart.classList.toggle('active');
+
+        // Toggle between outline and solid
+        if (heart.classList.contains('active')) {
+          heart.classList.remove('far'); // remove outline
+          heart.classList.add('fas');    // add solid
+        } else {
+          heart.classList.remove('fas'); // remove solid
+          heart.classList.add('far');    // add outline
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,341 @@
+<!-- START: HTML Document -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubhangi Collection</title>
+    <script src="./config.js"></script>
+    <!-- START: Fonts and Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- END: Fonts and Icons -->
+
+    <!-- START: Your External CSS -->
+    <link rel="stylesheet" href="index.css">
+    <!-- END: Your External CSS -->
+</head>
+
+<body>
+    <!-- START: Header Section -->
+    <header class="header">
+        <a href="/" class="logo">
+            Shubhangi<span>Collection</span>
+        </a>
+
+        <!-- Toggle Button for Mobile Navigation -->
+        <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">☰</div>
+
+        <!-- Navigation Menu -->
+        <nav class="nav-menu" id="nav-menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li class="mega-menu-link"><a id="collection" href="/collection">Collection</a></li>
+
+                <li><a href="/booking">Beauty Parlour</a></li>
+                <li><a href="/api/user/order">Orders</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right Side Icons -->
+        <div class="nav-icons">
+            <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+            <a href="/api/user/cart" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+            <a href="/api/user/profile" class="icon user-icon"><i class="fas fa-user"></i></a>
+        </div>
+    </header>
+    <!-- END: Header Section -->
+
+    <!-- START: Main Overlay -->
+    <div class="overlay main-overlay" id="mainOverlay"></div>
+    <!-- END: Main Overlay -->
+
+    <!-- START: Main Content Section -->
+    <main>
+        <!-- START: Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 id="hero-line">Discover Your Signature Style</h1>
+                <p id="sub-hero">Elegance and quality in every piece.</p>
+                <a href="/collection" class="btn btn-primary">Shop Now</a>
+            </div>
+        </section>
+        <!-- END: Hero Section -->
+
+        <!-- START: Categories Section -->
+        <section class="container">
+            <h2 class="section-title">Explore Our Categories</h2>
+            <div class="category-grid" id="categorieSection">
+                <!-- <a href="/collection/earrings" class="category-card">
+                    <img src="images/earrings.jpg" alt="Earrings">
+                    <h3>Earrings</h3>
+                </a>
+                <a href="/collection?category=nose-rings" class="category-card">
+                    <img src="images/nose-rings.jpg" alt="Nose Rings">
+                    <h3>Nose Rings</h3>
+                </a>
+                <a href="/collection?category=jewelry-sets" class="category-card">
+                    <img src="images/jewelry-sets.jpg" alt="Jewelry Sets">
+                    <h3>Jewelry Sets</h3>
+                </a>
+                <a href="/collection?category=bangles" class="category-card">
+                    <img src="images/bangles.jpg" alt="Bangles">
+                    <h3>Bangles</h3>
+                </a>
+                <a href="/collection?category=anklets" class="category-card">
+                    <img src="images/anklets.jpg" alt="Anklets">
+                    <h3>Anklets</h3>
+                </a> -->
+            </div>
+        </section>
+        <!-- END: Categories Section -->
+
+        <!-- START: Trending Items Section -->
+        <section class="container">
+            <h2 class="section-title">Trending Items</h2>
+            <div class="product-grid" id="trendingSection">
+                
+                
+                <!-- Add more product cards here if needed to fill the grid -->
+            </div>
+        </section>
+        <!-- END: Trending Items Section -->
+
+        <!-- START: Salon Promo Section -->
+        <section class="container salon-promo">
+            <div class="salon-promo-img">
+                <img src="images/salon-promo.jpg" alt="Beauty Parlour">
+            </div>
+            <div class="salon-promo-content">
+                <h2>Pamper Yourself with Our Salon Services</h2>
+                <p>Indulge in a world of relaxation and beauty. Book your appointment today and let us take care of you.
+                </p>
+                <a href="/booking" class="btn btn-secondary">Book an Appointment</a>
+            </div>
+        </section>
+        <!-- END: Salon Promo Section -->
+
+        <!-- START: Testimonials Section -->
+        <section class="testimonials">
+            <div class="container">
+                <h2 class="section-title">What Our Customers Say</h2>
+                <div class="testimonial-slider">
+                    <div class="testimonial-card">
+                        <img src="images/testimonial-1.jpg" alt="Customer 1">
+                        <h4>Priya Sharma</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"I absolutely adore my new jewelry set! The quality is amazing and it looks even better in
+                            person. Will definitely be a repeat customer."</p>
+                    </div>
+                    <!-- Add more testimonial cards here -->
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/80x80/FF6F61/FFFFFF?text=J.D." alt="Customer 2">
+                        <h4>John Doe</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>"The beauty parlour services were fantastic! A truly relaxing experience and I left feeling
+                            refreshed and beautiful."</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/80x80/E0E5C1/2E2E2E?text=A.K." alt="Customer 3">
+                        <h4>Anjali Kumari</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Shubhangi Collection always has the latest trends. Their accessories are unique and
+                            high-quality. Highly recommend!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: Testimonials Section -->
+    </main>
+    <!-- END: Main Content Section -->
+
+    <!-- START: Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <p id="aboutus">Shubhangi Collection is your destination for elegant and modern accessories and beauty services that
+                    celebrate your unique style. We believe in quality, beauty, and confidence.</p>
+            </div>
+            <!-- <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div> -->
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p id="email">Email: info@shubhangicollection.com</p>
+                <p id="phone">Phone: +91 93704 70692</p>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Shubhangi Collection. All Rights Reserved.
+        </div>
+    </footer>
+  <footer class="mobile-footer">
+    <a href="/" class="footer-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/collection" class="footer-item"><i class="fas fa-gem"></i><span>Collection</span></a>
+    <a href="/api/user/order" class="footer-item"><i class="fas fa-box"></i><span>Orders</span></a>
+    <a href="/api/user/delivery" class="footer-item"><i class="fas fa-truck"></i><span>Delivery</span></a>
+    <a href="/api/user/profile" class="footer-item"><i class="fas fa-user"></i><span>Account</span></a>
+</footer>
+    <!-- END: Footer Section -->
+
+    <!-- START: JavaScript Section -->
+    <script>
+       // Highlight active footer item based on URL
+const footerLinks = document.querySelectorAll(".mobile-footer .footer-item");
+const currentPath = window.location.pathname;
+footerLinks.forEach(link => {
+    // Normalize the href for comparison: use the path only
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+    if (currentPath === linkPath) {
+        link.classList.add("active");
+    }
+}); 
+
+        function togglelink() {
+            const nav = document.getElementById("nav-menu");
+            const overlay = document.getElementById('mainOverlay'); // Get overlay by ID
+            const toggleBtn = document.getElementById("toggle-Link");
+
+            nav.classList.toggle("show1");
+            overlay.classList.toggle("active"); // Toggle overlay active class
+            document.body.classList.toggle("no-scroll");
+
+            // Hamburger to ✕ toggle
+            if (toggleBtn) {
+                toggleBtn.classList.toggle("active");
+
+                if (toggleBtn.classList.contains("active")) {
+                    toggleBtn.innerHTML = "✖"; // ✕
+                } else {
+                    toggleBtn.innerHTML = "☰"; // ☰
+                }
+            }
+        }
+        // END: togglelink Function
+
+        function loadCategories() {
+            let cat = document.getElementById("categorieSection");
+            fetch(`${Backend_URL}/category/sendCategory`)
+                .then((res) => { return res.json() })
+                .then(data => {
+                    console.log("category on index:", data);
+                    data.forEach(category => {
+                        let a = document.createElement("a");
+                        a.className = "category-card";
+                        a.style.cursor = "pointer";
+                        a.href = `/collection?category=${category.Category_Name}`;
+                        let img = document.createElement("img");
+                        fetch(`${Backend_URL}/product/getTableData`)
+                            .then(prod => { return prod.json() })
+                            .then(prod => {
+                                // Find the first product matching this category
+                                let product = prod.find(obj => obj.Product_Category == category.Category_Name);
+                                if (product) {
+                                    img.src = `${product.Product_Images[0]}`;
+                                    a.append(img);
+                                }
+
+                                // Append the category name only once
+                                let h3 = document.createElement("h3");
+                                h3.textContent = category.Category_Name;
+                                a.append(h3);
+
+                            })
+
+
+                        cat.append(a);
+                    })
+
+
+                })
+                .catch(err => {
+                    document.write("Category Not found");
+                })
+
+        }
+        function loadTrendings() {
+            let trend = document.getElementById("trendingSection");
+            trend.innerHTML
+                fetch(`${Backend_URL}/product/getTableData`)
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(obj=>{
+                            if(obj.Product_Trend=="Yes")
+                        {
+                            let card=`
+                         <a href="/collection" class="product-card">
+                    <img src="${obj.Product_Images[0]}" alt="Rose Gold Earrings" class="product-card-img">
+                    <div class="product-info">
+                        <h3>${obj.Product_Name}</h3>
+                        <p>Rs.${obj.Product_Price}</p>
+                    </div>
+                </a>
+                        `;
+                        trend.innerHTML+=card;
+                        }
+                        })
+                    })
+                .catch(err => {
+                    document.write("Category Not found");
+                })
+
+        }
+
+function loadContent()
+{
+    let hero=document.getElementById("hero-line");
+    let sub=document.getElementById("sub-hero");
+    let phone=document.getElementById("phone");
+    let email=document.getElementById("email");
+    let aboutus=document.getElementById("aboutus");
+    fetch(`${Backend_URL}/website-content`)
+    .then(res=>res.json())
+    .then(data=>{
+        console.log("main : ",data);
+        hero.textContent=data.heroLine;
+        sub.textContent=data.subHeroLine;
+        phone.textContent=data.contactPhone;
+        email.textContent=data.contactEmail;
+        aboutus.textContent=data.aboutUs;
+
+    })
+}
+
+        loadCategories();
+        loadTrendings();
+        loadContent();
+    </script>
+    <!-- END: JavaScript Section -->
+</body>
+
+</html>
+<!-- END: HTML Document -->

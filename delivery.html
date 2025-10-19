@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Status - Shubhangi Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="delivery.css">
+</head>
+<script src="./config.js"></script>
+<body>
+
+    <!-- ======================= HEADER SECTION ======================= -->
+    <header class="header">
+        <a href="/" class="logo">
+            Shubhangi<span>Collection</span>
+        </a>
+
+        <div class="nav-menu1">
+            <div id="toggle-Link" class="toggle-Link" >&#9776;</div>
+            <nav id="nav-menu" class="nav-menu">
+                <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/collection">Collection</a></li>
+                <li><a href="/booking">Beauty Parlour</a></li>
+                <li><a href="/api/user/order">Orders</a></li>
+                <li><a href="/contact">Contact</a></li>
+                </ul>
+               
+            </nav>
+        </div>
+
+        <div class="header-right">
+            <div class="nav-icons">
+                <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+                <a href="/api/user/cart" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+                <a href="/api/user/delivery" class="active1"><i class="fas fa-truck"></i></a>
+                <a href="/api/user/profile" class="icon user-icon"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+    <div class="overlay main-overlay" id="mainOverlay"></div>
+    <!-- ======================= END HEADER SECTION ======================= -->
+
+    <main class="container">
+        <div class="delivery-status-wrapper">
+            <h2 class="section-title">Track Your Deliveries</h2>
+            
+            <div class="delivery-cards-container" id="ddContainer">
+               
+            </div>
+        </div>
+        <a href="/collection" id="omsg" style="display:flex;flex-direction: column;"><span id="msg">Try our products</span></a>
+    </main>
+    
+    <!-- ======================= CUSTOM MODAL ======================= -->
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+    <!-- ======================= END CUSTOM MODAL ======================= -->
+   <!-- <form>
+    <div>
+        Product Name: <input type="text">
+    </div>
+    <div>
+        Product category: <input type="text">
+    </div>
+    <div>
+        Rating: <select name="op" id="op">
+            <option value="Good">Good</option>
+            <option value="very good">Very good</option>
+            <option value="best">Best</option>
+        </select>
+    </div>
+    <button type="submit">Submit</button>
+   </form> -->
+
+   
+  
+    <div id="custom-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeCustomModal()">&times;</span>
+      <p id="modal-message"></p>
+    </div>
+  </div>
+      <div id="feedback-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeFeedbackModal()">&times;</span>
+      <h2>Leave a Review for <span id="review-product-name"></span></h2>
+      <form id="feedbackForm">
+        <input type="hidden" id="review-product-id" name="product-id">
+        
+        <div style="margin-bottom: 15px;">
+          <label for="product-name-input">Product Name:</label>
+                    <input type="text" id="product-name-input" name="product-name" readonly style="width: 100%; padding: 8px; box-sizing: border-box;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <label for="review-rating">Rating:</label>
+          <select name="rating" id="review-rating" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+            <option value="" disabled selected>Select a rating</option>
+            <option value="5">⭐⭐⭐⭐⭐ Best</option>
+            <option value="4">⭐⭐⭐⭐ Very Good</option>
+            <option value="3">⭐⭐⭐ Good</option>
+            <option value="2">⭐⭐ Fair</option>
+            <option value="1">⭐ Poor</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label for="review-text">Your Feedback:</label>
+          <textarea id="review-text" name="review-text" rows="4" placeholder="Tell us what you loved or how we can improve..." style="width: 100%; padding: 8px; box-sizing: border-box; resize: vertical;"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">Submit Review</button>
+      </form>
+    </div>
+  </div>
+     <footer class="mobile-footer">
+    <a href="/" class="footer-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/collection" class="footer-item"><i class="fas fa-gem"></i><span>Collection</span></a>
+    <a href="/api/user/order" class="footer-item"><i class="fas fa-box"></i><span>Orders</span></a>
+    <a href="/api/user/delivery" class="footer-item"><i class="fas fa-truck"></i><span>Delivery</span></a>
+    <a href="/api/user/profile" class="footer-item"><i class="fas fa-user"></i><span>Account</span></a>
+</footer>
+    <script>
+        const footerLinks = document.querySelectorAll(".mobile-footer .footer-item");
+const currentPath = window.location.pathname;
+footerLinks.forEach(link => {
+    // Normalize the href for comparison: use the path only
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+    if (currentPath === linkPath) {
+        link.classList.add("active");
+    }
+}); 
+        // ======================= FEEDBACK MODAL LOGIC (NEW) =======================
+    const feedbackModal = document.getElementById('feedback-modal');
+    const reviewProductNameDisplay = document.getElementById('review-product-name');
+    const productNameInput = document.getElementById('product-name-input');
+    const reviewProductIdInput = document.getElementById('review-product-id');
+    const feedbackForm = document.getElementById('feedbackForm');
+
+    function showFeedbackModal(productName, productId) {
+      reviewProductNameDisplay.textContent = productName;
+            productNameInput.value = productName;
+      reviewProductIdInput.value = productId; // Pass the actual ID to the form for submission
+      feedbackModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFeedbackModal() {
+      feedbackModal.style.display = 'none';
+      document.body.style.overflow = '';
+      // Reset the form fields after closing
+      feedbackForm.reset();
+    }
+        
+        // Ensure the custom modal can be closed via the function
+        function closeCustomModal() {
+            document.getElementById('custom-modal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+    // Add event listener to close the modal when clicking outside
+    window.addEventListener('click', function(event) {
+      if (event.target === feedbackModal) {
+        closeFeedbackModal();
+      }
+    });
+
+function getCurrentDateFormatted() {
+  const today = new Date();
+  
+  // Get day, month, and year components
+  const day = String(today.getDate()).padStart(2, '0');
+  // getMonth() returns 0 for January, so we add 1
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const year = today.getFullYear();
+  
+  // Combine into DD/MM/YYYY format
+  return `${day}/${month}/${year}`;
+}
+        // Handle Form Submission (IMPORTANT: You need to implement the actual backend call here)
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(feedbackForm);
+            const reviewData = {
+                orderId: formData.get('product-id'),
+                productName: formData.get('product-name'),
+                rating: formData.get('rating'),
+                reviewText: formData.get('review-text'),
+                date:getCurrentDateFormatted()
+            };
+
+            // TODO: Send reviewData to your backend API here (e.g., using fetch POST request)
+            console.log("Submitting Review:", reviewData);
+
+            fetch(`${Backend_URL}/feedback/addFeed`,{
+                method:"post",
+                headers:{
+                    'content-type':'application/json'
+                },
+                body:JSON.stringify(reviewData)
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                if(res.message)
+            {
+                alert(res.message);
+            }else{
+                alert("Unable to submit feedback !try again later");
+                console.log("err :",res.error);
+            }
+            })
+            .catch(err=>{
+                alert("error in submitting the feedback !");
+            })
+
+            // Close the modal and show a success message
+            closeFeedbackModal();
+            // Assuming you have the showModal from your existing code:
+            // showModal(`Thank you for reviewing ${reviewData.productName}! Your rating: ${reviewData.rating} stars.`);
+
+            // Example fetch call structure:
+            /*
+            fetch(`${Backend_URL}/api/submitReview`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reviewData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // handle success
+            })
+            .catch(error => {
+                // handle error
+            });
+            */
+        });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // ... existing navigation toggle logic ...
+            
+      // ======================= CUSTOM MODAL LOGIC (Simplified) =======================
+      const modal = document.getElementById('custom-modal');
+      const modalMessage = document.getElementById('modal-message');
+
+      function showModal(message) {
+        modalMessage.textContent = message;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+            // Added closeCustomModal function call to close button
+      // document.querySelector('#custom-modal .close-button').addEventListener('click', closeCustomModal);
+            
+      window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          closeCustomModal();
+        }
+      });
+            
+      // ======================= BUTTON LISTENERS (UPDATED) =======================
+      // IMPORTANT: The actual listeners are now added inside loadData() 
+            // after the cards are dynamically created.
+    });
+        loadData();
+        document.addEventListener('DOMContentLoaded', function() {
+            // ======================= NAVIGATION TOGGLE =======================
+            const navMenu = document.getElementById('nav-menu');
+            const toggleBtn = document.getElementById('toggle-Link');
+            const mainOverlay = document.getElementById('mainOverlay');
+            
+            function togglelink() {
+                navMenu.classList.toggle("show1");
+                document.body.classList.toggle("no-scroll");
+                mainOverlay.classList.toggle("active");
+
+                if (toggleBtn) {
+                    toggleBtn.classList.toggle("active");
+                    if (toggleBtn.classList.contains("active")) {
+                        toggleBtn.innerHTML = "✖";
+                    } else {
+                        toggleBtn.innerHTML = "☰";
+                    }
+                }
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', togglelink);
+            }
+            if (mainOverlay) {
+                mainOverlay.addEventListener('click', togglelink);
+            }
+
+            // ======================= CUSTOM MODAL LOGIC =======================
+            const modal = document.getElementById('custom-modal');
+            const closeButton = document.querySelector('.close-button');
+            const modalMessage = document.getElementById('modal-message');
+
+            // function showModal(message) {
+            //     modalMessage.textContent = message;
+            //     modal.style.display = 'flex';
+            //     document.body.style.overflow = 'hidden';
+            // }
+
+            function closeModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+
+            if (closeButton) {
+                closeButton.addEventListener('click', closeModal);
+            }
+
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // ======================= BUTTON LISTENERS =======================
+            document.querySelectorAll('.track-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const orderId = this.closest('.delivery-card').querySelector('.order-id').textContent;
+                    const statusText = this.closest('.delivery-card').querySelector('.delivery-status-bar').className.split(' ').pop().replace(/-/g, ' ');
+                    showModal(`Order ${orderId} is currently "${statusText}".`);
+                });
+            });
+        });
+
+        function loadData() {
+            fetch(`${Backend_URL}/order/getUserOrder`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log("dd  : ", data);
+                    let bdy = document.getElementById("ddContainer");
+
+                    bdy.innerHTML = "";
+                    if (data.length == 0) {
+
+                        document.getElementById("omsg").style.display = "flex";
+
+                    } else {
+                        document.getElementById("omsg").style.display = "none";
+
+                    }
+                    data.forEach(items => {
+                        items.items.forEach(item => {
+                            let card = `
+                       <div class="delivery-card">
+                    <div class="product-image">
+                        <img src="${item.Product_Images[0]}" alt="Bangles">
+                    </div>
+                    <div class="product-details">
+                        <h4 class="product-name">${item.Product_Name}</h4>
+                        <div class="card-header">
+                            <span class="order-id">Order ID: ${items.orderId}</span>
+                            <span class="order-date">Order placed on: ${items.createdAt[8] + items.createdAt[9] + "/" + items.createdAt[5] + items.createdAt[6] + "/" + items.createdAt[0] + items.createdAt[1] + items.createdAt[2] + items.createdAt[3]}</span>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Expected delivery date:</strong> <span class="estimated-date">${incrementDateByDays(items.createdAt[8] + items.createdAt[9] + "/" + items.createdAt[5] + items.createdAt[6] + "/" + items.createdAt[0] + items.createdAt[1] + items.createdAt[2] + items.createdAt[3], 5)}</span></p>
+                            <div class="delivery-status-bar ${items.status=='Pending'?'confirmed':items.status=='Shipped'?'out-for-delivery':'delivered'}">
+                                <div class="status-step confirmed"><span>Confirmed</span></div>
+                                <div class="status-step shipped"><span>Shipped</span></div>
+                                <div class="status-step out-for-delivery"><span>Out for Delivery</span></div>
+                                <div class="status-step delivered"><span>Delivered</span></div>
+                            </div>
+                            <div class="order-actions">
+                                <button class="btn btn-secondary btn-sm track-button" style="visibility:${items.status=='Completed'?'visible':'hidden'}" onClick="showFeedbackModal('${item.Product_Name}', '${items.orderId}')">Leave a Review</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+
+                            bdy.innerHTML += card
+                        })
+                    })
+                })
+        }
+        function incrementDateByDays(dateString, days) {
+    // 1. Parse the DD/MM/YYYY string into components
+    const [day, month, year] = dateString.split('/').map(Number);
+
+    // 2. Create a Date object. 
+    // Note: Months in JavaScript Date object are 0-indexed (0 = Jan, 3 = Apr)
+    // We subtract 1 from the month component.
+    const date = new Date(year, month - 1, day);
+
+    // 3. Increment the date by the specified number of days
+    // setDate() handles month and year rollovers automatically.
+    date.setDate(date.getDate() + days);
+
+    // 4. Format the new date back to "DD/MM/YYYY" string
+    
+    // Get the new components, ensuring they are padded with a leading zero if needed
+    const newDay = String(date.getDate()).padStart(2, '0');
+    // We add 1 back to the month (since it was 0-indexed)
+    const newMonth = String(date.getMonth() + 1).padStart(2, '0'); 
+    const newYear = date.getFullYear();
+
+    return `${newDay}/${newMonth}/${newYear}`;
+}
+    </script>
+</body>
+</html>

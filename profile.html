@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Shubhangi Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="profile.css">
+</head>
+<script src="./config.js"></script>
+
+<body>
+
+    <header class="header">
+        <a href="/" class="logo">
+            Shubhangi<span>Collection</span>
+        </a>
+        <div class="nav-menu1">
+            <div id="toggle-Link" class="toggle-Link">☰</div>
+            <nav id="nav-menu" class="nav-menu">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/collection">Collection</a></li>
+                    <li><a href="/booking">Beauty Parlour</a></li>
+                    <li><a href="/api/user/order">Orders</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="header-right">
+            <div class="nav-icons">
+
+                <a href="/api/user/cart" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+                <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+                <a href="/api/user/delivery" class="icon cart-icon"><i class="fas fa-truck"></i></a>
+            </div>
+        </div>
+    </header>
+    <div class="overlay main-overlay" id="mainOverlay"></div>
+
+    <main class="container">
+        <div class="profile-container">
+            <div class="profile-header">
+                <img src="https://placehold.co/120x120/FF5722/FFFFFF?text=?" alt="User Avatar" class="profile-avatar" id="profilePhoto">
+                <div class="profile-info">
+                    <h1 id="main_name"></h1>
+                    <p id="main_email"></p>
+                </div>
+            </div>
+
+            <div class="profile-section profile-details">
+                <h2>Personal Details</h2>
+                <div id="prof"></div>
+                <div class="profile-actions">
+                    <button class="btn btn-primary">Edit Profile</button>
+                    <button class="btn btn-secondary">Change Password</button>
+                </div>
+            </div>
+
+            <div class="profile-section order-history" id="">
+                <h2>Order History</h2>
+                <div class="order-cards-container" id="ordContainer"></div>
+                    
+                    <a href="/collection" id="omsg" style="display:flex;flex-direction: column;"><span id="msg">Order list is empty
+                !</span></a>
+            </div>
+
+            <div class="profile-section appointment-history">
+                <h2>Appointment History</h2>
+                <div class="appointment-cards-container" id="appContainer">
+                    </div>
+                <a href="/booking" id="amsg" style="display:flex;flex-direction: column;"><span id="msg_app">No appointments booked yet!</span></a>
+            </div>
+            <div class="profile-section account-options">
+
+
+            <div class="profile-section account-options">
+                <h2>Account Management</h2>
+                <ul>
+               
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Saved Addresses</a></li>
+                    <li><a href="/admin"><i class="fa-solid fa-user-ninja"></i></i> Admin Panel</a></li>
+                    <li><a href="/api/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+
+        </div>
+      
+    </main>
+
+    <!-- Edit Profile Modal -->
+<div id="editProfileModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h2>Edit Profile</h2>
+    <form id="editProfileForm">
+        <div id="profilepic" style="border:1px solid gray;height:50px;width:50px;border-radius:100%"></div>
+        <label>Profile photo :</label>
+        <input type="file" name="pic" id="pic" style="border:1px solid gray;" onchange="setPic()">
+      <label>Name:</label>
+      <input type="text" id="editName" required>
+      <label>Email:</label>
+      <input type="email" id="editEmail" required>
+      <label>Mobile:</label>
+      <input type="text" id="editMobile" required>
+      <label>Address:</label>
+      <input type="text" id="editAddress" required>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-secondary" onclick="closeModal('editProfileModal')">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePassModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h2>Change Password</h2>
+    <form id="changePassForm">
+      <label>Current Password:</label>
+      <input type="password" id="currentPass" required>
+      <label>New Password:</label>
+      <input type="password" id="newPass" required>
+      <label>Confirm Password:</label>
+      <input type="password" id="confirmPass" required>
+      <button type="submit" class="btn btn-primary">Update</button>
+      <button type="button" class="btn btn-secondary" onclick="closeModal('changePassModal')">Cancel</button>
+    </form>
+  </div>
+</div>
+  <footer class="mobile-footer">
+    <a href="/" class="footer-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/collection" class="footer-item"><i class="fas fa-gem"></i><span>Collection</span></a>
+    <a href="/api/user/order" class="footer-item"><i class="fas fa-box"></i><span>Orders</span></a>
+    <a href="/api/user/delivery" class="footer-item"><i class="fas fa-truck"></i><span>Delivery</span></a>
+    <a href="/api/user/profile" class="footer-item"><i class="fas fa-user"></i><span>Account</span></a>
+</footer>
+
+    <script>
+        const footerLinks = document.querySelectorAll(".mobile-footer .footer-item");
+const currentPath = window.location.pathname;
+footerLinks.forEach(link => {
+    // Normalize the href for comparison: use the path only
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+    if (currentPath === linkPath) {
+        link.classList.add("active");
+    }
+}); 
+function setPic() {
+    const input = document.getElementById("pic");
+    const container = document.getElementById("profilepic");
+
+   
+    container.innerHTML = "";
+
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.borderRadius = "50%";
+            container.appendChild(img);
+        };
+
+        reader.readAsDataURL(file); 
+    }
+}
+
+
+        function loadData() {
+
+            // let profile_Sec = document.querySelector(".profile-section");
+            let profile_sec=document.getElementById("prof");
+            profile_sec.innerHTML="";
+            
+            fetch(`${Backend_URL}/api/loadData/profile`)
+                .then(res => { return res.json() })
+                .then(user => {
+                    console.log("user =>",user)
+                    let name=document.getElementById("main_name");
+                    let email=document.getElementById("main_email");
+                    name.textContent=user.name;
+                    email.textContent=user.email;
+                    let pic=document.getElementById("profilePhoto");
+                    if(user.image)
+                {
+                    console.log("image bhetli")
+                    pic.src=`${user.image}`;
+                }
+                    for (k in user) {
+                        if(k=="_id" || k=="password" || k=="confirmPassword" || k=="__v" || k=="image")
+                    {
+
+                    }else{
+                        let p = document.createElement("p");
+                        let strong = document.createElement("strong");
+                        strong.textContent = k + " :";
+                        let span = document.createElement("span");
+                        span.textContent = user[k];
+
+                        p.append(strong);
+                        p.append(span);
+                        // profile_Sec.insertBefore(p, profile_Sec.querySelector(".profile-actions"));
+                        profile_sec.append(p);
+                    }
+                        
+                    }
+                    
+                })
+                .catch(err => console.log("error in fetching : ", err))
+
+            // const user={
+            //     name:"Vaibhav Salve",
+            //     email:"pratapsanap01@gmail.com",
+            //     mobile:"+91 98765 43210",
+            //     address:"Kopargaon 423601"
+            // }
+
+
+        }
+        function loadOrder() {
+            fetch(`${Backend_URL}/order/getUserOrder`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log("orderrrr  : ", data);
+                    let bdy = document.getElementById("ordContainer");
+
+                    bdy.innerHTML = "";
+                    if (data.length == 0) {
+
+                        document.getElementById("omsg").style.display = "flex";
+
+                    } else {
+                        document.getElementById("omsg").style.display = "none";
+                    }
+
+                   
+                    data.forEach(items => {
+                        items.items.forEach(item => {
+                            let card = `
+                             <div class="order-card">
+                        <div class="product-image">
+                            <img src="${item.Product_Images[0]}"
+                                alt="Product 2 Image">
+                        </div>
+                        <div class="product-details">
+                            <h4 class="product-name">${item.Product_Name}</h4>
+                            <div class="card-header">
+                                <span class="order-id">Order ID: ${items.orderId}</span>
+                                <span class="order-date">Date:  ${items.createdAt[8] + items.createdAt[9] + "/" + items.createdAt[5] + items.createdAt[6] + "/" + items.createdAt[0] + items.createdAt[1] + items.createdAt[2] + items.createdAt[3]}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="order-info">
+                                    <p><strong>Total:</strong> <span class="order-total">₹${item.Product_Price * item.quantity}</span></p>
+                                    <p><strong>Status:</strong> <span class="order-status-badge" style="background-color:${items.status == "Pending" ? "#FFC107" : items.status == "Completed" ? "green" : "blue"}">${items.status}</span>
+                                    </p>
+                                </div>
+                                <div class="order-actions">
+                                    <a href="/delivery"><button class="btn btn-secondary btn-sm">Track delivery</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                            
+
+                            bdy.innerHTML += card;
+                        })
+                    })
+                })
+        }
+        function loadAppointment() {
+    // NOTE: You must replace this with your actual API endpoint for user appointments
+    fetch(`${Backend_URL}/parlor/getApp`) 
+        .then(res => res.json())
+        .then(data => {
+            console.log("appointments : ", data);
+            let bdy = document.getElementById("appContainer");
+            let emptyMsg = document.getElementById("amsg");
+
+            bdy.innerHTML = "";
+            if (data.length === 0) {
+                emptyMsg.style.display = "flex";
+            } else {
+                emptyMsg.style.display = "none";
+            }
+
+            data.forEach(appointment => {
+                // Determine color based on Status
+                let statusColor = '#FFC107'; // Yellow for default/pending
+                if (appointment.Status === 'Completed') {
+                    statusColor = 'green';
+                } else if (appointment.Status === 'Cancelled') {
+                    statusColor = 'red';
+                }
+
+                // Format the Service list
+                const servicesList = Array.isArray(appointment.Service) 
+                    ? appointment.Service.join(', ') 
+                    : appointment.Service || 'N/A';
+                
+                // Format the Date (assuming Date is YYYY-MM-DD from MongoDB)
+                let formattedDate = appointment.Date;
+                if (appointment.Date) {
+                    const parts = appointment.Date.split('-');
+                    if (parts.length === 3) {
+                        formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`; // Converts YYYY-MM-DD to DD/MM/YYYY
+                    }
+                }
+
+                let card = `
+                    <div class="appointment-card">
+                        <div class="appointment-details">
+                            <h4 class="service-name">${servicesList}</h4>
+                            <div class="card-header">
+                                <span class="app-id">Appt ID: ${appointment._id.substring(0, 10)}...</span>
+                                <span class="app-date">Date: ${formattedDate} at ${appointment.Time}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="app-info">
+                                    <p><strong>Beautician:</strong> <span>${appointment.Beautician || ' - '}</span></p>
+                                    <p><strong>Status:</strong> 
+                                        <span class="app-status-badge" style="background-color:${statusColor}">${appointment.Status}</span>
+                                    </p>
+                                    <p><strong>Contact:</strong> <span>${appointment.Contact_Number}</span></p>
+                                    <p class="message"><strong>Message:</strong> <span>${appointment.Message || 'None'}</span></p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                `;
+                bdy.innerHTML += card;
+            });
+        })
+        .catch(err => {
+            console.error("Error fetching appointments:", err);
+            document.getElementById("amsg").style.display = "flex";
+            document.getElementById("msg_app").textContent = "Could not load appointments.";
+        });
+}
+
+        loadData();
+        loadOrder();
+        loadAppointment();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleBtn = document.getElementById("toggle-Link");
+            const nav = document.getElementById("nav-menu");
+            const overlay = document.getElementById('mainOverlay');
+
+            function togglelink() {
+                nav.classList.toggle("show1");
+                overlay.classList.toggle("active");
+                document.body.classList.toggle("no-scroll");
+
+                if (toggleBtn.classList.contains("active")) {
+                    toggleBtn.innerHTML = "☰"; // Hamburger
+                    toggleBtn.classList.remove("active");
+                } else {
+                    toggleBtn.innerHTML = "✖"; // Cross
+                    toggleBtn.classList.add("active");
+                }
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', togglelink);
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function () {
+                    if (nav.classList.contains('show1')) {
+                        togglelink();
+                    }
+                });
+            }
+
+            // Placeholder for "Edit Profile" button click
+           
+            // Placeholder for "View Details" button in Order History
+            document.querySelectorAll('.order-history .order-card .btn-secondary').forEach(button => {
+                if (button.textContent.includes('View Details')) {
+                    button.addEventListener('click', function () {
+                        const orderId = this.closest('.order-card').querySelector('.order-id').textContent;
+                        console.log(`View Details clicked for ${orderId}`);
+                        alert(`Viewing details for ${orderId}`);
+                    });
+                }
+            });
+
+            // Placeholder for "Add to Cart" button in Wishlist
+            document.querySelectorAll('.wishlist-item-card .btn-primary').forEach(button => {
+                if (button.textContent.includes('Add to Cart')) {
+                    button.addEventListener('click', function () {
+                        const productName = this.closest('.wishlist-item-card').querySelector('h4').textContent;
+                        console.log(`Added "${productName}" from wishlist to cart!`);
+                        alert(`"${productName}" added to cart!`);
+                    });
+                }
+            });
+
+            // Placeholder for Account Management links
+            // document.querySelectorAll('.account-options ul li a').forEach(link => {
+            //     link.addEventListener('click', function (event) {
+            //         if (this.getAttribute('href') === '#') { // Prevent default for placeholder links
+            //             event.preventDefault();
+            //             console.log(`Account option clicked: ${this.textContent.trim()}`);
+            //             alert(`"${this.textContent.trim()}" functionality coming soon!`);
+            //         }
+            //     });
+            // });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Utility to open/close modals
+function openModal(id) {
+  document.getElementById(id).style.display = "flex";
+}
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
+}
+
+// Edit Profile button
+document.querySelector('.btn-primary').addEventListener('click', function () {
+  // preload existing values
+  document.getElementById("editName").value = document.getElementById("main_name").textContent;
+  document.getElementById("editEmail").value = document.getElementById("main_email").textContent;
+  // Find all <strong> elements in the profile section
+const strongs = document.querySelectorAll('.profile-section strong');
+
+let mobileValue = '';
+strongs.forEach(strong => {
+  if (strong.textContent.trim().toLowerCase().includes('mobile')) {
+    // The <span> is next to the <strong>
+    mobileValue = strong.nextElementSibling?.textContent.trim();
+    document.getElementById("editMobile").value=mobileValue;
+  }else if (strong.textContent.trim().toLowerCase().includes('address'))
+  {
+    let ad=strong.nextElementSibling?.textContent.trim();
+    document.getElementById("editAddress").value=ad;
+    console.log(ad);
+  }
+});
+
+console.log("Mobile found:", mobileValue);
+
+  openModal("editProfileModal");
+});
+
+// Change Password button
+document.querySelector('.btn-secondary').addEventListener('click', function () {
+  openModal("changePassModal");
+});
+
+// Handle Edit Profile form submit
+document.getElementById("editProfileForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  let data = {
+    name: document.getElementById("editName").value,
+    email: document.getElementById("editEmail").value,
+    mobile: document.getElementById("editMobile").value,
+    address:document.getElementById("editAddress").value
+  };
+  const image = document.getElementById('pic').files[0];
+  let formData=new FormData();
+  formData.append("name",data.name);
+  formData.append("email",data.email);
+  formData.append("mobile",data.mobile);
+  formData.append("address",data.address);
+  formData.append("image",image);
+  fetch(`${Backend_URL}/api/updateUserDetails`, {
+    method: "POST",
+    body:formData
+  })
+  .then(res => res.json())
+  .then(resp => {
+    closeModal("editProfileModal");
+    if (resp.message === "Profile updated successfully") {
+        alert("Profile updated successfully!");
+    // Save new token
+    localStorage.setItem("token", resp.token);
+
+    
+
+    // Reload profile
+    loadData();
+
+    // Close modal
+    document.getElementById("editProfileModal").style.display = "none";
+}
+
+    
+    
+  })
+  .catch(err => alert("Error updating profile: " + err));
+});
+
+// Handle Change Password form submit
+document.getElementById("changePassForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  let data = {
+    currentPassword: document.getElementById("currentPass").value,
+    newPassword: document.getElementById("newPass").value,
+    confirmPassword: document.getElementById("confirmPass").value
+  };
+  fetch(`${Backend_URL}/api/changePassword`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(resp => {
+    if(resp.success){
+      alert("Password changed successfully!");
+      closeModal("changePassModal");
+    } else {
+      alert(resp.message || "Password change failed!");
+    }
+  })
+  .catch(err => alert("Error changing password: " + err));
+});
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Shopping Cart - Collection</title>
+
+  <!-- Fonts and Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Your External CSS -->
+  <link rel="stylesheet" href="cart.css" />
+</head>
+<script src="./config.js"></script>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="/" class="logo">Shubhangi<span>Collection</span></a>
+
+    <!-- Toggle Button for Mobile -->
+
+
+    <!-- Navigation Menu -->
+    <!-- Toggle Button Inside nav-menu (on top) -->
+    <div class="nav-menu1">
+      <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">☰</div>
+      <nav id="nav-menu" class="nav-menu">
+        <ul>
+          <li><a href="/index">Home</a></li>
+          <li><a href="/collection">Collection</a></li>
+          <li><a href="/booking">Beauty Parlour</a></li>
+          <li><a href="/api/user/order">Orders</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
+    <!-- Right Side Icons -->
+    <div class="nav-icons">
+      <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+      <a href="/collection" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+      <a href="/api/user/delivery" class="icon cart-icon1"><i class="fas fa-truck"></i></a>
+      <a href="/api/user/profile" class="icon user-icon"><i class="fas fa-user"></i></a>
+
+    </div>
+
+  </header>
+
+  <!-- Main Content -->
+  <!-- <button onClick=""></button> -->
+  <main>
+    <section class="container cart-page" >
+      <h2 class="section-title">Your Shopping Bag</h2>
+     
+      <div class="cart-items" id="mainDiv">
+          
+      </div>
+       <a href="/collection" id="omsg" style="display:flex;flex-direction: column;"><span id="msg">Cart is empty !</span></a>
+      <!-- Cart Summary -->
+      <div class="cart-summary" id="summary">
+        <div class="summary-item">
+          <span>Subtotal:</span>
+          <span class="subtotal-price" id="subtotal">₹ 0.00</span>
+        </div>
+        <a href="/checkout.html" class="btn btn-primary checkout-btn">
+  Proceed to Checkout
+</a>
+
+      </div>
+    </section>
+  </main>
+<footer class="mobile-footer">
+    <a href="/" class="footer-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/collection" class="footer-item"><i class="fas fa-gem"></i><span>Collection</span></a>
+    <a href="/api/user/order" class="footer-item"><i class="fas fa-box"></i><span>Orders</span></a>
+    <a href="/api/user/delivery" class="footer-item"><i class="fas fa-truck"></i><span>Delivery</span></a>
+    <a href="/api/user/profile" class="footer-item"><i class="fas fa-user"></i><span>Account</span></a>
+</footer>
+  <script>
+    const footerLinks = document.querySelectorAll(".mobile-footer .footer-item");
+const currentPath = window.location.pathname;
+footerLinks.forEach(link => {
+    // Normalize the href for comparison: use the path only
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+    if (currentPath === linkPath) {
+        link.classList.add("active");
+    }
+}); 
+    function togglelink() {
+      const nav = document.getElementById("nav-menu");
+      const toggleBtn = document.getElementById("toggle-Link");
+
+      nav.classList.toggle("show1");
+      document.body.classList.toggle("no-scroll");
+      toggleBtn.classList.toggle("active");
+
+      if (toggleBtn.classList.contains("active")) {
+        toggleBtn.innerHTML = "✖"; // Cross icon
+      } else {
+        toggleBtn.innerHTML = "☰"; // Menu icon
+      }
+    }
+
+    function updateSubtotal(products) {
+      // const qty1 = parseInt(document.getElementById("qty-1").value) || 0;
+      // const qty2 = parseInt(document.getElementById("qty-2").value) || 0;
+
+      // const price1 = 45.0;
+      // const price2 = 30.0;
+
+      // const total = qty1 * price1 + qty2 * price2;
+      // document.getElementById("subtotal").textContent = `₹${total.toFixed(2)}`;
+      console.log("products :  ", products);
+      let total=0;
+      products.forEach(obj=>{
+        total+=obj.price*obj.quantity;
+        let c=obj.price*obj.quantity;
+        console.log(`${obj.name} => c : ${c} => quan :${obj.quantity}`);
+        console.log("total : ",total);
+      })
+      document.getElementById("subtotal").textContent = `₹${total.toFixed(2)}`;
+
+
+    }
+    let products = []
+    function loadProduct() {
+      fetch(`${Backend_URL}/cart/cartProducts`)
+        .then(res => { return res.json() })
+        .then(res => {
+          // products=res;
+         
+          console.log("products : ", products);
+          console.log("response : ", res);
+          let maindiv = document.getElementById("mainDiv");
+          maindiv.innerHTML="";
+           if(res.length==0)
+        {
+          document.getElementById("summary").style.visibility="hidden";
+          document.getElementById("omsg").style.display="flex";
+          
+        }else{
+          document.getElementById("summary").style.visibility="visible";
+          document.getElementById("omsg").style.display="none";
+          
+        }
+          res.forEach(obj => {
+            let temp = {
+              name: obj.Product_Name,
+              price: obj.Product_Price,
+              quantity: obj.quantity
+            };
+            products.push(temp);
+
+            let div, img, h4, p, label, input, button;
+
+            div = document.createElement("div");
+            div.className = "cart-item";
+
+            let div2 = document.createElement("div");
+            div2.className = "cart-item-image";
+            img = document.createElement("img");
+            img.src = `${obj.Product_Images[0]}`;
+            console.log(`ll : /uploads/${obj.Product_Image}`)
+            div2.append(img);
+
+            let div3 = document.createElement("div");
+            div3.className = "cart-item-details";
+            h4 = document.createElement("h4");
+            h4.textContent = obj.Product_Name;
+            p = document.createElement("p");
+            let strong = document.createElement("strong");
+            strong.textContent = "Price :";
+            let span = document.createElement("span");
+            span.textContent = `₹${obj.Product_Price}`;
+            p.append(strong);
+            p.append(span);
+
+            let div4 = document.createElement("div");
+            div4.className = "quantity-control";
+            label = document.createElement("label");
+            label.textContent = "Quantity :";
+            input = document.createElement("input");
+            // input.setAttribute("type",Number)
+            input.type = "Number";
+            input.setAttribute("min", 1)
+            input.setAttribute("value", obj.quantity)
+            input.addEventListener("change", () => {
+              temp.quantity = input.value;
+              let up={
+                name:obj.Product_Name,
+                quantity:input.value
+              }
+              fetch(`${Backend_URL}/cart/updateQuantity`, {
+                method: "post",
+                headers: {
+                  'content-type': 'application/json'
+                },
+                body:JSON.stringify(up)
+              })
+              .then(res=>{return res.text()})
+              .then(res=>{
+                if(res!="updated")
+              {
+                alert(res);
+                loadProduct();
+              }
+                console.log("updated :",res);
+              })
+              updateSubtotal(products);
+            });
+
+            div4.append(label);
+            div4.append(input);
+
+            button = document.createElement("button");
+            button.className = "remove-item-btn";
+            button.textContent = "Remove";
+            button.addEventListener("click",()=>{
+               fetch(`${Backend_URL}/cart/remove`, {
+                method: "delete",
+                headers: {
+                  'content-type': 'application/json'
+                },
+                body:JSON.stringify({name:obj.Product_Name})
+              })
+              .then(res=>{return res.text()})
+              .then(res=>{
+                console.log("deleted :",res);
+                loadProduct();
+              })
+            })
+            
+
+            div3.append(h4);
+            div3.append(p);
+            div3.append(div4);
+            div3.append(button);
+
+            div.append(div2);
+            div.append(div3);
+            maindiv.append(div);
+            updateSubtotal(products)
+          });
+        })
+        .catch(err => {
+          console.log("error : ", err);
+        })
+    }
+
+    loadProduct();
+
+  </script>
+</body>
+
+</html>

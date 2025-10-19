@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #2E2E2E;
+      background: linear-gradient(135deg, #ff8a00, #e52e71);
+      background-attachment: fixed;
+      line-height: 1.6;
+      overflow-x: hidden; 
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      justify-content: center;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #fff; 
+      text-align: center;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Login Form Box */
+    #loginForm {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    #loginForm input[type="text"],
+    #loginForm input[type="password"] {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #E0BFC9;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      color: #2E2E2E;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    #loginForm input[type="text"]:focus,
+    #loginForm input[type="password"]:focus {
+      border-color: #FF5722;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.2);
+    }
+
+    #loginForm button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      background-color: #FF5722;
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    #loginForm button[type="submit"]:hover {
+      background-color: #E64A19;
+      transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      h2 {
+        font-size: 1.8rem;
+      }
+      #loginForm {
+        padding: 25px;
+      }
+      #loginForm input {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+      #loginForm button {
+        padding: 12px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+  <script src="./config.js"></script>
+</head>
+<body>
+  <h2>Login for Delivery Boy</h2>
+  <form id="loginForm">
+  <input type="text" id="id" required placeholder="User ID">
+  <input type="password" id="pass" required placeholder="Password">
+  <button type="submit">Login</button>
+</form>
+
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // stops the GET submit
+
+    let email = document.getElementById("id").value;
+    let pass = document.getElementById("pass").value;
+
+    let user = { email, password: pass };
+
+    fetch(`${Backend_URL}/deliveryBoy/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.text())
+      .then(res => {
+        alert("Login " + res);
+        if (res === "successfully ") {
+          window.open("/ddelivery");
+        }
+      });
+  });
+</script>
+
+</body>
+</html>

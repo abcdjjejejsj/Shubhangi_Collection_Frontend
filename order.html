@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Shubhangi Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="order.css">
+</head>
+<script src="./config.js"></script>
+
+<body>
+
+    <header class="header">
+        <a href="/" class="logo">
+            Shubhangi<span>Collection</span>
+        </a>
+
+        <div class="nav-menu1">
+            <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">☰</div>
+            <nav id="nav-menu" class="nav-menu">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/collection">Collection</a></li>
+                    <li><a href="/booking">Beauty Parlour</a></li>
+                    <li><a href="/api/user/order">Orders</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="header-right">
+
+            <div class="nav-icons">
+                <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+                <a href="/api/user/cart" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+                <a href="/api/user/delivery" class="icon cart-icon1"><i class="fas fa-truck"></i></a>
+                <a href="/api/user/profile" class="icon user-icon"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+    <div class="overlay main-overlay" id="mainOverlay"></div>
+
+    <main class="container">
+        <div class="customer-orders-wrapper">
+            <h2 class="section-title" id="section-title">My Orders</h2>
+
+
+            <div class="order-cards-container" id="ordContainer">
+
+            </div>
+
+
+
+
+        </div>
+        <a href="/collection" id="omsg" style="display:flex;flex-direction: column;"><span id="msg">Order list is empty
+                !</span></a>
+    </main>
+  <footer class="mobile-footer">
+    <a href="/" class="footer-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/collection" class="footer-item"><i class="fas fa-gem"></i><span>Collection</span></a>
+    <a href="/api/user/order" class="footer-item"><i class="fas fa-box"></i><span>Orders</span></a>
+    <a href="/api/user/delivery" class="footer-item"><i class="fas fa-truck"></i><span>Delivery</span></a>
+    <a href="/api/user/profile" class="footer-item"><i class="fas fa-user"></i><span>Account</span></a>
+</footer>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const mainNavToggle = document.getElementById('mainNavToggle');
+            const navMenu = document.getElementById('navMenu');
+            const mainOverlay = document.getElementById('mainOverlay');
+            const searchIcon = document.getElementById('searchIcon');
+            const searchBar = document.getElementById('searchBar');
+            const megaMenuLinks = document.querySelectorAll('.mega-menu-link > a');
+const footerLinks = document.querySelectorAll(".mobile-footer .footer-item");
+const currentPath = window.location.pathname;
+footerLinks.forEach(link => {
+    // Normalize the href for comparison: use the path only
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+    if (currentPath === linkPath) {
+        link.classList.add("active");
+    }
+}); 
+            function closeAllMenus() {
+                navMenu.classList.remove('active');
+                mainOverlay.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                searchBar.classList.remove('active');
+                searchIcon.classList.remove('active');
+                document.querySelectorAll('.mega-menu-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+            }
+
+            if (mainNavToggle) {
+                mainNavToggle.addEventListener('click', function () {
+                    navMenu.classList.toggle('active');
+                    mainOverlay.classList.toggle('active');
+                    document.body.classList.toggle('no-scroll');
+                    searchBar.classList.remove('active');
+                    searchIcon.classList.remove('active');
+                });
+            }
+
+            if (mainOverlay) {
+                mainOverlay.addEventListener('click', closeAllMenus);
+            }
+
+            if (searchIcon) {
+                searchIcon.addEventListener('click', function () {
+                    searchBar.classList.toggle('active');
+                    this.classList.toggle('active');
+                    navMenu.classList.remove('active');
+                    mainOverlay.classList.remove('active');
+                    document.body.classList.remove('no-scroll');
+                });
+            }
+
+            megaMenuLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    if (window.innerWidth <= 1030) {
+                        event.preventDefault();
+                        const parentLi = this.closest('.mega-menu-link');
+                        parentLi.classList.toggle('active');
+
+                        document.querySelectorAll('.mega-menu-link').forEach(otherLink => {
+                            if (otherLink !== parentLi) {
+                                otherLink.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            });
+
+            document.querySelectorAll('.mega-menu-link').forEach(link => {
+                link.addEventListener('mouseleave', function () {
+                    if (window.innerWidth > 1030) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 1030) {
+                    closeAllMenus();
+                    document.querySelectorAll('.mega-menu').forEach(menu => {
+                        menu.style.display = '';
+                    });
+                    document.querySelectorAll('.mega-menu-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                }
+            });
+
+            function attachOrderButtonListeners(card) {
+                const cancelButton = card.querySelector('.order-cancel-button');
+
+                if (cancelButton) {
+                    cancelButton.addEventListener('click', function () {
+                        const orderId = this.closest('.order-card').querySelector('.order-id').textContent.replace('Order ID: ', '');
+                        if (confirm(`Are you sure you want to cancel Order ID: ${orderId}?`)) {
+                            const statusCell = this.closest('.order-card').querySelector('.order-status-badge');
+                            statusCell.textContent = 'Cancelled';
+                            statusCell.className = 'order-status-badge cancelled';
+                            alert(`Order ID: ${orderId} has been cancelled.`);
+                            console.log(`Order ID: ${orderId} cancelled.`);
+                        }
+                    });
+                }
+            }
+
+            document.querySelectorAll('.order-card').forEach(card => {
+                attachOrderButtonListeners(card);
+            });
+        });
+
+        function togglelink() {
+            const nav = document.getElementById("nav-menu");
+            const toggleBtn = document.getElementById("toggle-Link");
+
+            nav.classList.toggle("show1");
+            document.body.classList.toggle("no-scroll");
+
+            if (toggleBtn) {
+                toggleBtn.classList.toggle("active");
+
+                if (toggleBtn.classList.contains("active")) {
+                    toggleBtn.innerHTML = "✖";
+                } else {
+                    toggleBtn.innerHTML = "☰";
+                }
+            }
+        }
+
+        function loadData() {
+            fetch(`${Backend_URL}/order/getUserOrder`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log("orderrrr  : ", data);
+                    let bdy = document.getElementById("ordContainer");
+
+                    bdy.innerHTML = "";
+                    if (data.length == 0) {
+
+                        document.getElementById("omsg").style.display = "flex";
+
+                    } else {
+                        document.getElementById("omsg").style.display = "none";
+
+                    }
+                    data.forEach(items => {
+                        items.items.forEach(item => {
+                            let card = `
+                        <div class="order-card">
+                    <div class="product-image">
+                        <img src="${item.Product_Images[0]}" alt="Product 1 Image">
+                    </div>
+                    <div class="product-details">
+                        <h4 class="product-name">${item.Product_Name}</h4>
+                        <div class="card-header">
+                            <span class="order-id">Order ID: ${items.orderId}</span>
+                            <span class="order-quantity">Quantity: ${item.quantity}(₹${item.Product_Price}/product)</span>
+                            <span class="order-date">Date: ${items.createdAt[8] + items.createdAt[9] + "/" + items.createdAt[5] + items.createdAt[6] + "/" + items.createdAt[0] + items.createdAt[1] + items.createdAt[2] + items.createdAt[3]}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="order-info">
+                                <p><strong>Total:</strong> <span class="order-total">₹${item.Product_Price * item.quantity}</span></p>
+                                <p><strong>Status:</strong> <span class="order-status-badge" style="background-color:${items.status == "Pending" ? "#FFC107" : items.status == "Completed" ? "green" :items.status == "Shipped" ?"blue":"red"}">${items.status}</span>
+                                </p>
+                                <p><strong>Delivery Code:</strong> <span class="order-total">${items.deliveryCode}</span></p>
+                            </div>
+                            <div class="order-actions">
+                                <button class="btn btn-primary btn-sm order-cancel-button" onClick="delOrder('${items.Email}','${items.orderId}','${items.deliveryCode}','${item.Product_Name}','${items.status}')">Cancel Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+
+                            bdy.innerHTML += card
+                        })
+                    })
+                })
+        }
+
+        loadData();
+
+        function delOrder(email, id, code, name,status) {
+            if(status=="Completed" || status=="Shipped")
+        {
+            alert("Order can't be cancel !");
+            return;
+        }
+            let ch = confirm("Do you want delete order");
+            if (ch) {
+                let chh = confirm("Deleted order can't be restored");
+                if (chh) {
+                    fetch(`${Backend_URL}/order/deleteItem`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: email,
+                            orderId: id,
+                            deliveryCode: code,
+                            productName: name
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.success) {
+                                loadData();
+                            } else {
+                                alert(data.message);
+                            }
+                        });
+
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an Appointment | Shubhangi Beauty Parlour</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="booking.css">
+  <link rel="stylesheet" href="pop.css">
+</head>
+<script src="./config.js"></script>
+
+<body>
+
+  <header class="header">
+    <a href="/" class="logo">Shubhangi<span>Collection</span></a>
+    <div class="nav-menu1">
+      <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">☰</div>
+      <nav id="nav-menu" class="nav-menu">
+        <!-- This will become ✖ -->
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/collection">Collection</a></li>
+          <li><a href="/booking">Beauty Parlour</a></li>
+          <li><a href="/api/user/order">Orders</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="nav-icons">
+      <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+      <a href="/api/user/cart" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+      <a href="/api/user/delivery" class="icon cart-icon1"><i class="fas fa-truck"></i></a>
+      <a href="/api/user/profile" class="icon user-icon"><i class="fas fa-user"></i></a>
+    </div>
+  </header>
+
+  <main class="booking-page">
+    <h2 class="section-title">Book Your Beauty Appointment</h2>
+    <section class="booking-form-section">
+      <form id="bookingForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Contact Number</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label>Select Services</label>
+          <div class="service-selection">
+            <label><input type="checkbox" name="service" value="facial"> Facial</label>
+            <label><input type="checkbox" name="service" value="waxing"> Waxing</label>
+            <label><input type="checkbox" name="service" value="manicure"> Manicure & Pedicure</label>
+            <label><input type="checkbox" name="service" value="hair-spa"> Hair Spa</label>
+            <label><input type="checkbox" name="service" value="threading"> Threading</label>
+            <label><input type="checkbox" name="service" value="other"> Other</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="time">Preferred Time</label>
+          <input type="time" id="time" name="time" required>
+        </div>
+        <div class="form-group">
+          <label for="notes">Additional Notes</label>
+          <textarea id="notes" name="notes" rows="4"></textarea>
+        </div>
+        <button type="button" id="submit" class="btn btn-secondary">Submit Booking</button>
+      </form>
+    </section>
+  </main>
+  <footer class="mobile-footer">
+    <a href="/" class="footer-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/collection" class="footer-item"><i class="fas fa-gem"></i><span>Collection</span></a>
+    <a href="/api/user/order" class="footer-item"><i class="fas fa-box"></i><span>Orders</span></a>
+    <a href="/api/user/delivery" class="footer-item"><i class="fas fa-truck"></i><span>Delivery</span></a>
+    <a href="/api/user/profile" class="footer-item"><i class="fas fa-user"></i><span>Account</span></a>
+</footer>
+  <script>
+    const footerLinks = document.querySelectorAll(".mobile-footer .footer-item");
+const currentPath = window.location.pathname;
+footerLinks.forEach(link => {
+    // Normalize the href for comparison: use the path only
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+    if (currentPath === linkPath) {
+        link.classList.add("active");
+    }
+}); 
+    function showPopup(message) {
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+                <div class="popup-content">
+                    <p>${message}</p>
+                    <button class="popup-btn">OK</button>
+                </div>
+            `;
+  document.body.appendChild(popup);
+
+  popup.querySelector(".popup-btn").addEventListener("click", () => {
+    popup.remove();
+  });
+}
+    // START: togglelink Function
+    function togglelink() {
+      const nav = document.getElementById("nav-menu");
+      const toggleBtn = document.getElementById("toggle-Link");
+
+      nav.classList.toggle("show1");
+      document.body.classList.toggle("no-scroll");
+
+      if (toggleBtn) {
+        toggleBtn.classList.toggle("active");
+
+        if (toggleBtn.classList.contains("active")) {
+          toggleBtn.innerHTML = "✖"; // ✕
+        } else {
+          toggleBtn.innerHTML = "☰"; // ☰
+        }
+      }
+    }
+    // END: togglelink Function
+
+    // START: Booking Form Submission
+    document.getElementById('submit').addEventListener('click', () => {
+      // event.preventDefault(); // Prevent the form from refreshing the page
+      console.log("hello world")
+      fetch(`${Backend_URL}/validateUser`)
+      .then(res=>{return res.text()})
+      .then(data=>{
+        console.log("vvv : ",data);
+        if(data!="success")
+      {
+        showPopup("Please Log in to book appointment");
+        setTimeout(()=>{
+          window.open("/register");
+        },4000);
+      }else{
+         // Get form values
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const notes = document.getElementById('notes').value;
+      const services = Array.from(document.querySelectorAll('input[name="service"]:checked'))
+        .map(checkbox => checkbox.value);
+
+        if(name=="" || phone=="" || date=="" || time=="" || services=="")
+        {
+          showPopup("All fields are required !");
+          return;
+        }
+
+      // Create an appointment object
+      const newAppointment = {
+        // id: new Date().getTime(), // Unique ID for each appointment
+        Name: name,
+        Contact_Number: phone,
+        Service: services,
+        Beautician:"",
+        Date: date,
+        Time: time,
+        Message: notes,
+        Status: 'pending' // Default status
+      };
+      fetch(`${Backend_URL}/parlor/getData`, {
+        method: "POST",
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newAppointment)
+      })
+        .then(res => { return res.text() })
+        .then(data => {
+          console.log("app: ", data);
+          showPopup(data);
+        })
+        .catch(err => {
+          console.log(err);
+          showPopup("Unable to book the appointment !")
+        })
+
+      console.log("app : ", newAppointment);
+
+      }
+      })
+     
+
+    });
+    // END: Booking Form Submission
+  </script>
+</body>
+
+</html>

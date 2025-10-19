@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Complete your purchase</title>
+  <link rel="stylesheet" href="checkout.css">
+  <link rel="stylesheet" href="pop.css">
+</head>
+<script src="./config.js"></script>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <a href="/" class="logo">Shubhangi<span>Collection</span></a>
+    <div class="nav-menu1">
+      <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">☰</div>
+      <nav id="nav-menu" class="nav-menu">
+        <ul>
+          <li><a href="/index">Home</a></li>
+          <li><a href="/collection">Collection</a></li>
+          <li><a href="/booking">Beauty Parlour</a></li>
+          <li><a href="/api/user/order">Orders</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="nav-icons">
+      <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+      <a href="/collection" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+      <a href="/api/user/delivery" class="icon cart-icon"><i class="fas fa-truck"></i></a>
+      <a href="/api/user/profile" class="icon user-icon"><i class="fas fa-user"></i></a>
+    </div>
+  </header>
+
+  <div class="all">
+    <main>
+      <!-- STEP 1: LOGIN -->
+      <div class="lcard">
+        <div class="card">
+          <div class="step-header">
+            <div class="step-number">1</div>
+            <div class="step-header-text"><span class="main-header-text">LOGIN</span></div>
+          </div>
+          <div class="step-content active" id="step1-content">
+            <div class="step-summary" style="display:block;">
+              <div class="card" style="padding: 15px;">
+                <p style="font-weight: 600;" id="user-name"></p>
+                <p style="font-size: 14px; color: #555;" id="user-phone"></p>
+              </div>
+              <button class="button button-primary" onclick="goToStep(2)">CONTINUE</button>
+            </div>
+            <div class="step-form" style="display:none;">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="login-name" value="Pratap Sanap">
+              </div>
+              <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="tel" id="login-number" value="+919370470692">
+              </div>
+              <button class="button button-primary" onclick="saveLogin()">Save and Continue</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: ADDRESS -->
+        <div class="card">
+          <div class="step-header">
+            <div class="step-number">2</div>
+            <div class="step-header-text"><span class="main-header-text">DELIVERY ADDRESS</span></div>
+            <button class="button button-secondary" onclick="toggleAddressForm()">CHANGE</button>
+          </div>
+          <div class="step-content" id="step2-content">
+            <div class="step-summary" style="display:block;">
+              <div class="card" style="padding: 15px;">
+                <p style="font-weight: 600;" id="address-name"></p>
+                <p style="font-size: 14px; color: #555;" id="address-details"></p>
+              </div>
+              <button class="button button-primary" style="margin-top:15px;" onclick="goToStep(3)">DELIVER HERE</button>
+            </div>
+            <div class="step-form" style="display:none;">
+              <div class="form-group"><label>Full Name</label><input type="text" id="address-fullname"></div>
+              <div class="form-group"><label>Mobile</label><input type="tel" id="address-mobile"></div>
+              <div class="form-group"><label>Pincode</label><input type="text" id="address-pincode"></div>
+              <div class="form-group"><label>Address</label><input type="text" id="address-line1"></div>
+              <div class="form-group"><label>City</label><input type="text" id="address-city"></div>
+              <div class="form-group"><label>State</label><input type="text" id="address-state"></div>
+              <button class="button button-primary" onclick="saveAddress()">Save and Deliver Here</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: ORDER SUMMARY -->
+        <div class="card">
+          <div class="step-header">
+            <div class="step-number">3</div>
+            <div class="step-header-text"><span class="main-header-text">ORDER SUMMARY</span></div>
+          </div>
+          <div class="step-content" id="step3-content" style="overflow-y: scroll;"></div>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- PRICE DETAILS -->
+    <div class="price-details-container">
+    <div class="card price-details-card">
+        <h2>PRICE DETAILS</h2>
+        <div id="price-lines">
+            </div>
+
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #e0e0e0;">
+            <label for="discount-code" style="display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">
+                Have a coupon?
+            </label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="discount-code" placeholder="Enter coupon code" style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+                <button type="button" onclick="applyDiscount()" style="padding: 8px 12px; background-color: #2874f0; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">
+                    APPLY
+                </button>
+            </div>
+        </div>
+        <div style="margin-top:20px;font-size:12px;color:#878787;">
+            Safe and Secure Payments. Easy returns. 100% Authentic products.
+        </div>
+    </div>
+</div>
+
+  <!-- MODAL -->
+  <div id="confirmModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Cash on Delivery Order</h2>
+      <p>Pay via UPI or Cash when you receive your order</p>
+      <img src="./image.png" class="modal-image">
+      <div class="modal-buttons">
+        <button class="button cancel" id="cancel-btn">Cancel</button>
+        <button class="button button-primary" id="confirm-btn">Confirm order</button>
+      </div>
+    </div>
+  </div>
+<footer class="mobile-footer">
+    <a href="/" class="footer-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/collection" class="footer-item"><i class="fas fa-gem"></i><span>Collection</span></a>
+    <a href="/api/user/order" class="footer-item"><i class="fas fa-box"></i><span>Orders</span></a>
+    <a href="/api/user/delivery" class="footer-item"><i class="fas fa-truck"></i><span>Delivery</span></a>
+    <a href="/api/user/profile" class="footer-item"><i class="fas fa-user"></i><span>Account</span></a>
+</footer>
+  <script>
+   function togglelink() {
+      const nav = document.getElementById("nav-menu");
+      const toggleBtn = document.getElementById("toggle-Link");
+
+      nav.classList.toggle("show1");
+      document.body.classList.toggle("no-scroll");
+      toggleBtn.classList.toggle("active");
+
+      if (toggleBtn.classList.contains("active")) {
+        toggleBtn.innerHTML = "✖"; // Cross icon
+      } else {
+        toggleBtn.innerHTML = "☰"; // Menu icon
+      }
+    }
+const footerLinks = document.querySelectorAll(".mobile-footer .footer-item");
+const currentPath = window.location.pathname;
+footerLinks.forEach(link => {
+    // Normalize the href for comparison: use the path only
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+    if (currentPath === linkPath) {
+        link.classList.add("active");
+    }
+}); 
+    const stepContents = document.querySelectorAll('.step-content');
+    let orderInfo = {};
+    // ---------------- CART HANDLING ----------------
+    async function loadCartItems() {
+      try {
+        const res = await fetch(`${Backend_URL}/cart/cartProducts`);
+        if (!res.ok) throw new Error("Cart load failed");
+        const cartItems = await res.json();
+        console.log("cartItems : ", cartItems);
+        const step3 = document.getElementById("step3-content");
+        step3.innerHTML = "";
+
+        let total = 0;
+        orderInfo.items=cartItems;
+        cartItems.forEach(item => {
+          total += item.Product_Price * item.quantity;
+          const div = document.createElement("div");
+          div.classList.add("order-item-wrapper");
+          div.innerHTML = `
+          <div class="order-item" style="border:2px solid #FFD9B7;padding:10px;border-radius:5px;box-shadow:0px 0px 7px orange;">
+            <img src="${item.Product_Images[0] || 'https://placehold.co/90x90'}" class="item-image">
+            <div class="item-details">
+              <span class="item-title">${item.Product_Name}</span>
+              <p>Category: ${item.Product_Category || '-'}</p>
+              <p>Seller: ${"Shubhangi"}</p>
+              <p>Quantity : ${item.quantity}</p>
+              <div class="item-actions" style="display:flex">
+             <span class="item-price">₹${item.Product_Price}</span>
+            <button onclick="removeFromCart('${item.Product_Name}')" style="background:none;color:#2874f0;border:none;cursor:pointer">REMOVE</button>
+          </div>
+              
+            </div>
+          </div>
+         
+          `;
+          step3.appendChild(div);
+        });
+
+        // Continue button
+        const continueDiv = document.createElement("div");
+        continueDiv.style.textAlign = "right";
+        continueDiv.innerHTML = `<button class="button button-primary" id="continue-btn">CONTINUE</button>`;
+        step3.appendChild(continueDiv);
+
+        // Bind continue button AFTER rendering
+        document.getElementById("continue-btn").addEventListener("click", () => {
+          document.getElementById("confirmModal").style.display = "flex";
+        });
+
+        // Update price details
+        document.getElementById("price-lines").innerHTML = `
+        <div class="price-line"><span>Price (${cartItems.length} items)</span><span>₹${total}</span></div>
+        <div class="price-line"><span>Platform Fee</span><span>₹7</span></div>
+        <div class="price-line total"><span>Total Payable: </span><span id="finalAmount">₹${total + 7}</span></div>
+      `;
+      } catch (err) {
+        console.error("Cart error:", err);
+      }
+    }
+
+
+
+    async function removeFromCart(name) {
+      await fetch(`${Backend_URL}/cart/remove`, {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ name: name })
+      });
+      loadCartItems();
+    }
+
+    // ---------------- USER DATA ----------------
+    async function loadCheckoutData() {
+      try {
+        const userRes = await fetch(`${Backend_URL}/api/loadData/profile`);
+        const user = await userRes.json();
+        document.getElementById("user-name").textContent = user.name || "Guest";
+        document.getElementById("user-phone").textContent = user.mobile || "";
+
+        document.getElementById("address-name").textContent = user.name || "No Address";
+        document.getElementById("address-details").textContent = user.address || "hello";
+        console.log("user.address :", user.address);
+        console.log("user : ", user);
+        
+        orderInfo.userName=user.name;
+        orderInfo.phone=user.mobile;
+        orderInfo.address=user.address;
+      } catch (e) {
+        console.error("Load profile/address error:", e);
+      }
+    }
+let val=true;
+    // ---------------- UI HELPERS ----------------
+    function goToStep(n) {
+      stepContents.forEach(c => c.classList.remove("active"));
+      document.getElementById(`step${n}-content`).classList.add("active");
+    }
+    function toggleLoginForm() {
+      const f = document.querySelector("#step1-content .step-form");
+      const s = document.querySelector("#step1-content .step-summary");
+      f.style.display = f.style.display === "block" ? "none" : "block";
+      s.style.display = s.style.display === "block" ? "none" : "block";
+    }
+    function toggleAddressForm() {
+      const f = document.querySelector("#step2-content .step-form");
+      const s = document.querySelector("#step2-content .step-summary");
+      f.style.display = f.style.display === "block" ? "none" : "block";
+      s.style.display = s.style.display === "block" ? "none" : "block";
+    }
+    function saveLogin() {
+      document.getElementById("user-name").textContent = document.getElementById("login-name").value;
+      document.getElementById("user-phone").textContent = document.getElementById("login-number").value;
+      toggleLoginForm();
+    }
+    function saveAddress() {
+      document.getElementById("address-name").textContent = document.getElementById("address-fullname").value;
+      document.getElementById("address-details").textContent =
+        `${document.getElementById("address-line1").value}, ${document.getElementById("address-city").value}, ${document.getElementById("address-state").value}, Pincode: ${document.getElementById("address-pincode").value}`;
+        orderInfo.address+="::::,"+document.getElementById("address-details").textContent;
+        orderInfo.userName+="::::,"+document.getElementById("address-name").textContent;
+        orderInfo.phone+="::::::,"+document.getElementById("address-mobile").value;
+      toggleAddressForm();
+    }
+
+    // ---------------- MODAL ----------------
+    document.getElementById("cancel-btn").addEventListener("click", () => {
+      document.getElementById("confirmModal").style.display = "none";
+    });
+    document.getElementById("confirm-btn").addEventListener("click", async () => {
+      orderInfo.total=document.getElementById("finalAmount").textContent;
+      try {
+        console.log("orderinfooo : ",orderInfo);
+        for(k in orderInfo)
+      {
+        console.log(k, " : ",orderInfo[k]);
+      }
+        const res = await fetch(`${Backend_URL}/order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderInfo)
+      });
+
+      const order = await res.json();
+      if(order.error)
+      {
+        alert("unable to placed order ! try once again")
+      }
+      if(order.inerr)
+      {
+        alert("order failed : "+order.inerr);
+      }
+      
+      if (order.orderId) {
+        // window.location.href = `/order-success.html?orderId=${order.orderId}`;
+        alert("order placed successfully... order ID:"+order.orderId);
+        window.location.href="/collection";
+      }
+      } catch (e) { alert("Order failed");
+        console.log("order details : ",e);
+       }
+    });
+
+    function applyDiscount()
+    {
+     let code=document.getElementById("discount-code").value; 
+     let amt=document.getElementById("finalAmount").textContent; 
+     
+     let str = "₹450";
+let num = parseInt(amt.replace("₹", ""));
+console.log("num :",num); // 450
+
+
+
+     console.log("amt : :",amt);
+     console.log("code::",code);
+     
+     if(val)
+     {
+      fetch(`${Backend_URL}/order/veryfyDiscount`,{
+      method:"post",
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify({code:code})
+     })
+     .then(res=>res.json())
+     .then(data=>{
+      console.log("verii : ",data);
+
+      if(data.message)
+     {
+      alert(data.message);
+     }else{
+      val=false;
+      if(data.type=="Percentage")
+     {
+          console.log("value :",data.value)
+          let dd=parseInt(data.value);
+          let per=Math.round(num*(dd/100));
+          let fa=num-per;
+          console.log("per : ",per);
+          console.log("amt val",typeof(amt),typeof(dd));
+          alert("discount applied successfully")
+          document.getElementById("finalAmount").textContent=`₹${fa}`;
+     }
+     }
+      
+     })
+     .catch(err=>{
+      
+      console.log("error in verifying : ",err);
+     })
+     }else{
+      alert("coupon already applied !");
+     }
+     
+
+    }
+
+    // ---------------- INIT ----------------
+    window.onload = () => {
+      stepContents.forEach((c, i) => c.classList.toggle("active", i === 0));
+      loadCheckoutData();
+      loadCartItems();
+    };
+  </script>
+</body>
+
+</html>
+

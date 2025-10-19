@@ -1,0 +1,760 @@
+/* =========================================================================
+    Global Styles
+    ========================================================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #2E2E2E;
+   background: linear-gradient(135deg, #ff8a00, #e52e71);
+    background-attachment: fixed;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.no-scroll {
+    overflow: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #2E2E2E;
+}
+
+a {
+    text-decoration: none;
+    color: #2E2E2E;
+    transition: color 0.3s;
+}
+a:hover {
+    color: #FF5722;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+.btn-primary {
+    background-color: #FF5722;
+    color: #fff;
+    border: 1px solid #FF5722;
+}
+.btn-primary:hover {
+    background-color: #E64A19;
+    border-color: #E64A19;
+    transform: translateY(-2px);
+}
+.btn-secondary {
+    background-color: #E0E5C1;
+    color: #2E2E2E;
+    border: 1px solid #E0E5C1;
+}
+.btn-secondary:hover {
+    background-color: transparent;
+    color: #FF5722;
+    border-color: #FF5722;
+    transform: translateY(-2px);
+}
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #FF5722;
+}
+.logo span {
+    display: block;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #757575;
+    margin-top: -5px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    flex-grow: 1;
+}
+/* =========================================================================
+    Header Styles
+    ========================================================================= */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+.nav-menu ul li a {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+    color: #2E2E2E;
+    transition: color 0.3s;
+}
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.nav-icons .icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #2E2E2E;
+    transition: 0.3s ease;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================================================================
+    Profile Page Styles
+    ========================================================================= */
+.profile-container {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 3px solid #FF5722;
+}
+.profile-info h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: #FF5722;
+}
+.profile-info p {
+    margin: 0;
+    color: #757575;
+}
+
+.profile-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #FDF3EF;
+    border-radius: 8px;
+}
+.profile-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #FF5722;
+    border-bottom: 2px solid #FF5722;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.profile-details p {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+.profile-details strong {
+    color: #2E2E2E;
+    margin-right: 5px;
+}
+.profile-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+/* =========================================================================
+    Order History Section (New Card Layout)
+    ========================================================================= */
+.order-history {
+    background-color: #fff;
+    box-shadow: none;
+    padding: 0;
+}
+.order-cards-container {
+    display: grid;
+    gap: 20px;
+}
+.order-card {
+    background-color: #FDF3EF;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    display: flex;
+    gap: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+.order-card:hover {
+    transform: translateY(-5px);
+}
+.product-image {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.product-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.product-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 10px;
+    color: #333;
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    font-size: 1.1rem;
+    color: #4A4A4A;
+}
+.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding-top: 15px;
+}
+.order-info p {
+    margin: 0;
+    padding: 5px 0;
+}
+.order-info strong {
+    color: #FF5722;
+    margin-right: 5px;
+}
+.order-status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: white;
+    text-transform: capitalize;
+}
+.order-status-badge.completed { background-color: #4CAF50; }
+.order-status-badge.pending { background-color: #FFC107; color: #212121; }
+.order-status-badge.shipped { background-color: #03A9F4; }
+.order-status-badge.cancelled { background-color: #F44336; }
+.order-actions {
+    display: flex;
+    gap: 10px;
+}
+.order-actions .btn-sm {
+    flex-grow: 1;
+}
+
+/* =========================================================================
+    Wishlist Section
+    ========================================================================= */
+.wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.wishlist-item-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+.wishlist-item-card:hover {
+    transform: translateY(-5px);
+}
+.wishlist-item-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.wishlist-item-card h4 {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+.wishlist-item-card p {
+    font-weight: 600;
+    color: #FF5722;
+    margin-bottom: 10px;
+}
+
+/* =========================================================================
+    Account Options Section
+    ========================================================================= */
+.account-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.account-options ul li {
+    margin-bottom: 10px;
+}
+.account-options ul li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    color: #2E2E2E;
+    font-weight: 500;
+}
+.account-options ul li a:hover {
+    background-color: #E0E5C1;
+    color: #FF5722;
+}
+.account-options ul li a i {
+    font-size: 1.2rem;
+    color: #FF5722;
+}
+.account-options ul li a:hover i {
+    color: #2E2E2E;
+}
+
+
+/* =========================================================================
+    Responsive Design
+    ========================================================================= */
+/* START: Toggle Button */
+.toggle-Link {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #2E2E2E;
+    transition: transform 0.3s, color 0.3s;
+    z-index: 1100;
+}
+
+.toggle-Link.active {
+    color: #FF5722;
+    transform: rotate(90deg);
+    right: 220px;
+    top: 20px;
+    font-size: 1.5rem;
+}
+@media (min-width: 1040px) {
+    .order-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1039px) {
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 250px;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 60px 24px 32px;
+        background: #fff;
+        box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
+        border-radius: 16px 0 0 16px;
+        opacity: 0;
+        transition: right 0.4s, opacity 0.4s;
+        z-index: 1001;
+    }
+    .nav-menu.show1 {
+        right: 0;
+        opacity: 1;
+    }
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 18px;
+    }
+    .nav-menu ul li a {
+        padding: 10px 1px;
+        font-size: 1rem;
+        border-radius: 8px;
+        transition: background 0.25s, color 0.25s;
+    }
+    .nav-menu ul li a:hover {
+        background: #fff3e0;
+        color: #FF5722;
+    }
+    .toggle-Link {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 115px;
+        font-size: 20px;
+    }
+    .header {
+        padding: 20px;
+    }
+
+    .nav-icons
+    {
+        gap: 13px;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-avatar {
+        margin: 0 0 15px 0;
+    }
+    .profile-actions {
+        flex-direction: column;
+    }
+    .profile-actions .btn {
+        width: 100%;
+    }
+    .order-cards-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .order-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+    .product-image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+    .product-details {
+        width: 100%;
+    }
+    .product-name {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        font-size: 1rem;
+        padding-bottom: 10px;
+    }
+    .card-body {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 10px;
+    }
+    .order-actions {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .order-actions .btn {
+        width: 100%;
+    }
+}
+
+
+
+@media screen and (max-width: 464px) {
+    .header {
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-icons {
+        gap: 15px;
+    }
+
+    .nav-icons .icon {
+        font-size: 1rem;
+    }
+     .toggle-Link {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 115px;
+        font-size: 20px;
+    }
+}
+
+
+
+/* Style for empty cart message */
+#msg {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #fff3cd; /* light yellow */
+    color: #856404; /* dark yellow/brown */
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    font-size: 50px;
+    text-align: center;
+    padding:40px;
+}
+
+/* Hover effect for empty cart message */
+#msg:hover {
+    background-color: #ffe8a1;
+    color: #6b4f00;
+    transform: scale(1.03);
+    transition: all 0.3s ease-in-out;
+}
+
+
+
+
+
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+}
+.modal input {
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+}
+
+/* ========================= */
+/* ===== MOBILE FOOTER ===== */
+/* ========================= */
+.mobile-footer {
+    display: none; 
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ccc;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 0;
+    z-index: 1000;
+}
+
+.mobile-footer .footer-item {
+    color: #555;
+    text-align: center;
+    font-size: 12px;
+    flex: 1;
+    text-decoration: none;
+}
+
+.mobile-footer .footer-item i {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+
+.mobile-footer .footer-item.active,
+.mobile-footer .footer-item:hover {
+    color: #FF5722; 
+}
+
+.footer-item.active i {
+    color: #FF5722; 
+}
+
+
+@media (max-width: 768px) {
+   
+    .nav-icons .user-icon {
+        display: none;
+    }
+    .fa-truck{
+        display: none;
+    }
+
+    .mobile-footer {
+        display: flex;
+    }
+    .desktop-footer {
+        display: none;
+    }
+     .toggle-Link {
+        display: block;
+        position: absolute;
+        top: 28px;
+        right: 5px;
+       
+    }
+}
+
+@media (min-width: 769px) {
+   
+    .mobile-footer {
+        display: none;
+    }
+    .desktop-footer {
+        display: flex;
+    }
+   
+}
+
+* ========================================= */
+/* APPOINTMENT HISTORY CARD STYLING */
+/* ========================================= */
+
+.appointment-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds space between each card */
+    padding: 0 10px; /* Optional: adds horizontal padding */
+}
+
+.appointment-card {
+    /* Basic Card Structure */
+    border: 1px solid #ddd; /* Light border to define the card area */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px;
+    background-color: #ffffff; /* White background for contrast */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+    transition: box-shadow 0.3s ease;
+}
+
+.appointment-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-details {
+    /* Flex layout for header elements */
+    display: flex;
+    flex-direction: column;
+}
+
+.appointment-details h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #FF5722; /* Use your brand color for the service name */
+    font-weight: 600;
+}
+
+.appointment-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.appointment-card .card-body p {
+    margin: 4px 0;
+}
+
+/* Ensure status badge styling is correct */
+.app-status-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: inline-block;
+}
+
+/* Optional: Improve alignment of details */
+.appointment-card .app-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for details */
+    gap: 5px 15px;
+    margin-bottom: 10px;
+}
+
+.appointment-card .app-info .message {
+    grid-column: 1 / -1; /* Make the message span both columns */
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.appointment-card .app-actions {
+    text-align: right;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+}
+
+/* Make sure the main profile section has internal padding */
+.profile-section {
+    padding: 20px;
+    background-color: #f7f7f7; /* Light background for the whole section */
+    border-radius: 8px;
+    margin-bottom: 25px; /* Space between the main sections */
+}
+

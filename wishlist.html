@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Wishlist - Shubhangi Collection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="wishlist.css">
+  <link rel="stylesheet" href="pop.css">
+</head>
+<script src="./config.js"></script>
+<body>
+  <div id="mainOverlay" class="overlay"></div>
+
+  <header class="header">
+    <a href="/" class="logo">Shubhangi<span>Collection</span></a>
+
+    <div class="header-center">
+      <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">&#9776;</div>
+      <nav id="nav-menu" class="nav-menu">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/collection">Collection</a></li>
+          <li><a href="/booking">Beauty Parlour</a></li>
+          <li><a href="/api/user/order">Orders</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="nav-icons">
+        <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+        <a href="/api/user/cart" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+        <a href="/api/user/delivery" class="icon cart-icon1"><i class="fas fa-truck"></i></a>
+        <a href="/api/user/profile" class="icon user-icon"><i class="fas fa-user"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container wishlist-container">
+    <h2 class="section-title" id="section-title">My Wishlist</h2>
+    
+    <a href="/collection" id="msg"><span>
+        Your wishlist is empty. Start adding some lovely items!
+    </span>
+    </a>
+
+    <div id="wishlist-products-grid" class="product-grid">
+        </div>
+</main>
+  <footer class="mobile-footer">
+    <a href="/" class="footer-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/collection" class="footer-item"><i class="fas fa-gem"></i><span>Collection</span></a>
+    <a href="/api/user/order" class="footer-item"><i class="fas fa-box"></i><span>Orders</span></a>
+    <a href="/api/user/delivery" class="footer-item"><i class="fas fa-truck"></i><span>Delivery</span></a>
+    <a href="/api/user/profile" class="footer-item"><i class="fas fa-user"></i><span>Account</span></a>
+</footer>
+  <script>
+    const footerLinks = document.querySelectorAll(".mobile-footer .footer-item");
+const currentPath = window.location.pathname;
+footerLinks.forEach(link => {
+    // Normalize the href for comparison: use the path only
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+    if (currentPath === linkPath) {
+        link.classList.add("active");
+    }
+}); 
+    function showPopup(message) {
+      const popup = document.createElement("div");
+      popup.className = "popup";
+      popup.innerHTML = `
+                <div class="popup-content">
+                    <p>${message}</p>
+                    <button class="popup-btn">OK</button>
+                </div>
+            `;
+      document.body.appendChild(popup);
+
+      popup.querySelector(".popup-btn").addEventListener("click", () => {
+        popup.remove();
+      });
+    }
+    function togglelink() {
+      const nav = document.getElementById("nav-menu");
+      const overlay = document.getElementById('mainOverlay');
+      const toggleBtn = document.getElementById("toggle-Link");
+
+      nav.classList.toggle("show1");
+      overlay.classList.toggle("active");
+      document.body.classList.toggle("no-scroll");
+
+      if (toggleBtn) {
+        toggleBtn.classList.toggle("active");
+
+        if (toggleBtn.classList.contains("active")) {
+          toggleBtn.innerHTML = "✖"; // ✕
+        } else {
+          toggleBtn.innerHTML = "☰"; // ☰
+        }
+      }
+    }
+
+    async function loadWishlist() {
+      try {
+        const response = await fetch(`${Backend_URL}/wish/wishProducts`); // use your correct API
+        const products = await response.json();
+
+        const container = document.getElementById("wishlist-products-grid");
+        const emptyMsg = document.getElementById("msg");
+
+
+        container.innerHTML = ""; // clear previous
+        console.log("prod : ",products);
+        if (!products || products.length === 0) {
+          emptyMsg.style.display = "block";
+          return;
+        } else {
+          emptyMsg.style.display = "none";
+        }
+
+        products.forEach(product => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+
+          card.innerHTML = `
+          <div class="image-container">
+            <img src="${product.Image}" alt="${product.Name}">
+            <div class="remove-from-wishlist" data-id="${product.Name}">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+          <h4>${product.Name}</h4>
+          <p class="price">₹${product.Price}</p>
+          
+        `;
+          let btn = document.createElement("button");
+          btn.className = "btn btn-primary";
+          btn.textContent = "Add to Cart";
+          btn.addEventListener("click", () => {
+            // alert("name : "+product.Name);
+            fetch(`${Backend_URL}/cart/add`, {
+              method: "POST",
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ Product: product.Product_Name, quantity: 1 })
+
+            })
+            .then(res => res.text())
+            .then(res => showPopup(res))
+            .catch(err => { showPopup("Unable to add in cart!") })
+          })
+            
+          card.append(btn);
+          container.appendChild(card);
+        });
+
+
+        // Remove from wishlist action
+        container.addEventListener("click", async (e) => {
+          if (e.target.closest(".remove-from-wishlist")) {
+            const name = e.target.closest(".remove-from-wishlist").dataset.id;
+            console.log("Remove product with id:", name);
+
+            // Optional: call backend API to delete
+            fetch(`${Backend_URL}/wish/remove`, {
+              method: "delete",
+              headers: { "Content-Type": "application/json" },
+              body:JSON.stringify({name:name})
+            })
+            .then(res=>{return res.text()})
+            .then(data=>{console.log("data :",data);
+            loadWishlist();
+          }
+          
+          )
+            .catch(err=>{
+              console.log("err : ",err);
+            })
+
+            // reload wishlist after deletion
+           
+          }
+        });
+
+      } catch (error) {
+        console.error("Error loading wishlist:", error);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    loadWishlist();
+});
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,622 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #2E2E2E;
+    background: linear-gradient(135deg, #ff8a00, #e52e71);
+    background-attachment: fixed;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #2E2E2E;
+}
+
+a {
+    text-decoration: none;
+    color: #2E2E2E;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #FF5722;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+    background-color: #FF5722;
+    color: #fff;
+    border: 1px solid #FF5722;
+}
+
+.btn-primary:hover {
+    background-color: #E64A19;
+    border-color: #E64A19;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #E0E5C1;
+    color: #2E2E2E;
+    border: 1px solid #E0E5C1;
+}
+
+.btn-secondary:hover {
+    background-color: transparent;
+    color: #FF5722;
+    border-color: #FF5722;
+    transform: translateY(-2px);
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #FF5722;
+}
+
+.logo span {
+    display: block;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #757575;
+    margin-top: -5px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    color: #000000;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-icons .icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #2E2E2E;
+    transition: 0.3s ease;
+}
+
+.nav-icons .icon:hover {
+    color: #FF5722;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav-menu ul li {
+    margin: 0 15px;
+}
+
+.nav-menu ul li a {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+    color: #2E2E2E;
+    transition: color 0.3s;
+}
+
+.nav-menu ul li a:hover {
+    color: #FF5722;
+}
+
+.all {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 30px; 
+    flex-wrap: wrap; 
+    flex-grow: 1;
+}
+
+main {
+    flex-grow: 1;
+    flex-basis: 0; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    padding: 0;
+}
+
+.lcard {
+    display: flex; 
+    flex-direction: column;
+    gap: 20px;
+}
+
+.price-details-container {
+    flex-basis: 350px; 
+    flex-shrink: 0; 
+    flex-grow: 0;
+    position: sticky;
+    top: 100px; 
+    align-self: flex-start;
+}
+
+.card {
+    background: #fff;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.step-number {
+    background: #FF5722;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-header-text {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.step-header-text .main-header-text {
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #2E2E2E;
+}
+
+.step-content {
+    display: none;
+}
+
+.step-content.active {
+    display: block;
+}
+
+.step-summary {
+    background: #fff3e0;
+    border: 1px solid #FFD0B2;
+    border-radius: 8px;
+    padding: 15px;
+    
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    transition: border 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #FF5722;
+    outline: none;
+}
+
+.order-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.item-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-title {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.item-price {
+    font-weight: 700;
+    color: #FF5722;
+}
+
+.item-discount {
+    color: #388E3C;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.quantity-btn:hover {
+    background: #fff3e0;
+    border-color: #FF5722;
+}
+
+.price-details-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.price-details-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.price-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.price-line.total {
+    font-weight: 700;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.price-line.savings {
+    font-size: 0.9rem;
+    color: #388E3C;
+    margin-top: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 10px;
+    max-width: 400px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.modal-content p {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.modal-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.modal .button.cancel {
+    background: #eee;
+    color: #2E2E2E;
+    border: 1px solid #ccc;
+}
+
+.modal .button.cancel:hover {
+    background: #ddd;
+}
+
+.button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.button-primary {
+    background: #FF5722;
+    color: #fff;
+}
+
+.button-primary:hover {
+    background: #E64A19;
+}
+
+.button-secondary {
+    background: #E0E5C1;
+    color: #2E2E2E;
+}
+
+.button-secondary:hover {
+    background: transparent;
+    border: 1px solid #FF5722;
+    color: #FF5722;
+}
+ 
+.toggle-Link {
+    display: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #2E2E2E;
+    transition: transform 0.3s, color 0.3s;
+    z-index: 1201;
+    position: absolute;
+    padding: 6px 12px;
+}
+
+.toggle-Link.active {
+    color: #FF5722;
+    transform: rotate(90deg);
+    right: 200px;
+    top: 20px;
+    font-size: 1.5rem;
+}
+@media (max-width: 1040px) {
+    .header {
+        padding: 20px;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -280px;
+        /* Start off-screen */
+        width: 250px;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 110px 24px 32px;
+        background: #fff;
+        box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
+        border-radius: 16px 0 0 16px;
+        opacity: 0;
+        transition: right 0.4s, opacity 0.4s;
+        z-index: 1001;
+    }
+
+    .nav-menu.show1 {
+        right: 0;
+        opacity: 1;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .nav-menu ul li {
+        margin: 0;
+    }
+
+    .nav-menu ul li a {
+        width: 100%;
+        padding: 10px 16px;
+        font-size: 1rem;
+        border-radius: 8px;
+        transition: background 0.25s, color 0.25s;
+    }
+
+    .nav-menu ul li a:hover {
+        background: #fff3e0;
+        color: #FF5722;
+    }
+
+    .toggle-Link {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 10px;
+       
+    }
+}
+
+@media (max-width: 768px) {
+    .all {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .price-details-container {
+        order: -1;
+        width: 100%;
+        flex-basis: auto;
+        position: static;
+    }
+
+    main {
+        padding: 0;
+    }
+
+    .price-details-card {
+        width: 100%;
+    }
+}
+/* ========================= */
+/* ===== MOBILE FOOTER ===== */
+/* ========================= */
+.mobile-footer {
+    display: none; 
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ccc;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 0;
+    z-index: 1000;
+}
+
+.mobile-footer .footer-item {
+    color: #555;
+    text-align: center;
+    font-size: 12px;
+    flex: 1;
+    text-decoration: none;
+}
+
+.mobile-footer .footer-item i {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+
+.mobile-footer .footer-item.active,
+.mobile-footer .footer-item:hover {
+    color: #FF5722; 
+}
+
+.footer-item.active i {
+    color: #FF5722; 
+}
+
+
+@media (max-width: 768px) {
+   
+    .nav-icons .user-icon {
+        display: none;
+    }
+
+    .mobile-footer {
+        display: flex;
+    }
+    .desktop-footer {
+        display: none;
+    }
+     .toggle-Link {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 10px;
+       
+    }
+}
+
+@media (min-width: 769px) {
+   
+    .mobile-footer {
+        display: none;
+    }
+    .desktop-footer {
+        display: flex;
+    }
+   
+}

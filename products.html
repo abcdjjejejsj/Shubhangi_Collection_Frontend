@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection - Shubhangi Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="collection.css">
+</head>
+<script src="./config.js"></script>
+
+<body>
+
+    <header class="header">
+        <a href="/" class="logo">Shubhangi<span>Collection</span></a>
+
+        <nav class="nav-menu2" id="nav-menu2">
+             
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/collection">Collection</a></li>
+                <li><a href="/booking">Beauty Parlour</a></li>
+                 <li><a href="/api/user/order">Orders</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+            <!-- Filter menu toggle for mobile -->
+
+           <div class="toggle-filter" id="toggle-filter" onclick="toggleFilter()">
+    <i class="fa-solid fa-filter"></i>
+</div>
+             <div class="nav-icons">
+       <a href="/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
+         <a href="/api/user/cart" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
+         <a href="/api/user/delivery" class="icon cart-icon"><i class="fas fa-truck"></i></a>
+                <a href="/api/user/profile" class="icon user-icon"><i class="fas fa-user"></i></a>
+      </div>
+            
+            <div class="toggle-Link1" id="toggle-Link" onclick="togglelink()">&#9776;</div>
+        </div>
+    </header>
+
+    <!-- Overlay for the main navigation menu -->
+    <div class="overlay main-overlay" id="main-overlay"></div>
+
+    <!-- Overlay for the filter sidebar -->
+    <div class="sidebar-overlay"></div>
+
+    <main class="main-content-wrapper">
+        <aside class="sidebar" id="sidebar">
+         
+            <h3>Filters</h3>
+
+            <div class="filter-group categories">
+                <h4>Categories</h4>
+                <ul>
+                    <li><label><input type="checkbox" value="Apparel"> Apparel</label></li>
+                    <li><label><input type="checkbox" value="Accessories"> Accessories</label></li>
+                    <li><label><input type="checkbox" value="Jewelry"> Jewelry</label></li>
+                    <li><label><input type="checkbox" value="Footwear"> Footwear</label></li>
+                </ul>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <input type="range" min="0" max="150" value="150" class="slider" id="priceRange">
+                <!-- Adjusted max price for sample data -->
+                <p>Price: $<span id="priceValue">150</span></p>
+            </div>
+
+            <div class="filter-group ratings">
+                <h4>Ratings</h4>
+                <ul>
+                    <li><label><input type="checkbox" value="5"> <i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i></label></li>
+                    <li><label><input type="checkbox" value="4"> <i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="far fa-star"></i> & Up</label></li>
+                    <li><label><input type="checkbox" value="3"> <i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i
+                                class="far fa-star"></i> & Up</label></li>
+                </ul>
+            </div>
+
+            <div class="filter-group sort-options-sidebar">
+                <h4>Sort by</h4>
+                <select id="sort-by">
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="newest">Newest Arrivals</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary apply-filters-btn">Apply Filters</button>
+        </aside>
+
+        <section class="product-list-section container">
+            <div class="product-grid">
+                <!-- <div class="product-card" data-product-id="prod001" data-category="Apparel" data-price="59.99"
+                    data-rating="4.5">
+                    <i class="far fa-heart wishlist-icon1"></i>
+                    <img src="./images/bangles.jpg" alt="Bangles" class="product-card-img">
+                    <div class="product-info">
+                        <h3>Bangles</h3>
+                        <span class="product-category">Category: Apparel</span>
+                        <p>₹59.99</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="prod002" data-category="Accessories" data-price="129.00"
+                    data-rating="4.0">
+                    <i class="far fa-heart wishlist-icon1"></i>
+                    <img src="images/anklets.jpg" alt="Anklet" class="product-card-img">
+                    <div class="product-info">
+                        <h3>Anklet</h3>
+                        <span class="product-category">Category: Accessories</span>
+                        <p>₹129.00</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="prod003" data-category="Jewelry" data-price="35.50"
+                    data-rating="5.0">
+                    <i class="far fa-heart wishlist-icon1"></i>
+                    <img src="images/earrings.jpg" alt="Earrings" class="product-card-img">
+                    <div class="product-info">
+                        <h3>Earrings</h3>
+                        <span class="product-category">Category: Jewelry</span>
+                        <p>₹35.50</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="prod004" data-category="Jewelry" data-price="75.00"
+                    data-rating="3.5">
+                    <i class="far fa-heart wishlist-icon1"></i>
+                    <img src="images/nose-rings.jpg" alt="nose-rings" class="product-card-img">
+                    <div class="product-info">
+                        <h3>Nose-rings</h3>
+                        <span class="product-category">Category: Jewelry</span>
+                        <p>₹75.00</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="prod005" data-category="Jewelry" data-price="25.00"
+                    data-rating="4.5">
+                    <i class="far fa-heart wishlist-icon1"></i>
+                    <img src="images/jewelry-sets.jpg" alt="jewelry" class="product-card-img">
+                    <div class="product-info">
+                        <h3>Necklace</h3>
+                        <span class="product-category">Category: Jewelry</span>
+                        <p>₹25.00</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="prod006" data-category="Accessories" data-price="45.00"
+                    data-rating="5.0">
+                    <i class="far fa-heart wishlist-icon1"></i>
+                    <img src="images/product-1.jpg" alt="Watches" class="product-card-img">
+                    <div class="product-info">
+                        <h3>Watches</h3>
+                        <span class="product-category">Category: Accessories</span>
+                        <p>₹45.00</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+    </main>
+       <script>
+    // These must be global so that onclick in HTML can access them
+        function loadData()
+        {
+            fetch(`${Backend_URL}/category/Collection/:cat`)
+            .then(res=>{return res.json()})
+            .tehn(data=>{
+                
+            })
+        }
+
+    function toggleFilter() {
+    let nav1 = document.getElementById("sidebar");
+    nav1.classList.toggle("show");
+
+    let overlay = document.querySelector('.sidebar-overlay');
+    overlay.classList.toggle("active");
+
+    document.body.classList.toggle("no-scroll");
+
+    // Add icon toggle
+    let toggleBtn = document.getElementById("toggle-filter");
+    toggleBtn.classList.toggle("active");
+
+    if (toggleBtn.classList.contains("active")) {
+    toggleBtn.innerHTML = "✖"; // ✕ Close
+} else {
+    toggleBtn.innerHTML = '<i class="fa-solid fa-filter"></i>'; // Funnel icon
+}
+
+}
+
+
+    function togglelink() {
+    let nav = document.getElementById("nav-menu2");
+    nav.classList.toggle("show1");
+
+    let overlay = document.querySelector('.main-overlay');
+    overlay.classList.toggle("active");
+
+    document.body.classList.toggle("no-scroll");
+
+    // Hamburger to ✕ toggle
+    let toggleBtn = document.getElementById("toggle-Link");
+    toggleBtn.classList.toggle("active");
+
+    if (toggleBtn.classList.contains("active")) {
+        toggleBtn.innerHTML = "✖"; // ✕
+    } else {
+        toggleBtn.innerHTML = "☰"; // ☰
+    }
+}
+
+
+
+    // Main collection logic
+    function initCollectionPage() {
+        const priceRange = document.getElementById('priceRange');
+        const priceValue = document.getElementById('priceValue');
+        const productCards = document.querySelectorAll('.product-card');
+        const productGrid = document.querySelector('.product-grid');
+
+        if (priceRange && priceValue) {
+            priceValue.textContent = `₹${priceRange.value}`;
+            priceRange.oninput = function () {
+                priceValue.textContent = `₹${this.value}`;
+                applyFilters();
+            }
+        }
+
+        const applyFiltersBtn = document.querySelector('.apply-filters-btn');
+
+        function applyFilters() {
+            const selectedCategories = Array.from(document.querySelectorAll('.filter-group.categories input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+            const maxPrice = parseInt(document.getElementById('priceRange').value);
+            const selectedRatings = Array.from(document.querySelectorAll('.filter-group.ratings input[type="checkbox"]:checked'))
+                .map(cb => parseInt(cb.value));
+
+            productCards.forEach(card => {
+                const productCategory = card.dataset.category;
+                const productPrice = parseFloat(card.dataset.price);
+                const productRating = parseFloat(card.dataset.rating);
+
+                let showProduct = true;
+
+                if (selectedCategories.length > 0 && !selectedCategories.includes(productCategory)) {
+                    showProduct = false;
+                }
+
+                if (productPrice > maxPrice) {
+                    showProduct = false;
+                }
+
+                if (selectedRatings.length > 0) {
+                    let ratingMatch = false;
+                    for (const minRating of selectedRatings) {
+                        if (productRating >= minRating) {
+                            ratingMatch = true;
+                            break;
+                        }
+                    }
+                    if (!ratingMatch) {
+                        showProduct = false;
+                    }
+                }
+
+                card.style.display = showProduct ? 'block' : 'none';
+            });
+
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarOverlay = document.querySelector('.sidebar-overlay');
+            const filterToggleIcon = document.getElementById('filterToggleIcon');
+
+            if (sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                if (filterToggleIcon) {
+                    filterToggleIcon.classList.remove('fa-times');
+                    filterToggleIcon.classList.add('fa-bars');
+                }
+            }
+        }
+
+        applyFiltersBtn.addEventListener('click', applyFilters);
+
+        document.getElementById('sort-by').addEventListener('change', function () {
+            const sortBy = this.value;
+            const productsArray = Array.from(productCards);
+
+            productsArray.sort((a, b) => {
+                const priceA = parseFloat(a.dataset.price);
+                const priceB = parseFloat(b.dataset.price);
+
+                switch (sortBy) {
+                    case 'price-asc':
+                        return priceA - priceB;
+                    case 'price-desc':
+                        return priceB - priceA;
+                    default:
+                        return 0;
+                }
+            });
+
+            productsArray.forEach(card => {
+                productGrid.appendChild(card);
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', initCollectionPage);
+</script>
+</body>
+
+</html>
