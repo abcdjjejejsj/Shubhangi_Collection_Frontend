@@ -257,7 +257,9 @@ footerLinks.forEach(link => {
 
                     heart.addEventListener('click', () => {
                         heart.classList.toggle('active');
-                        fetch(`${Backend_URL}/validateUser`)
+                        fetch(`${Backend_URL}/validateUser`,
+                              {credentials: "include"}
+                             )
                             .then(res => { return res.text() })
                             .then(data => {
                                 if (data != "success") {
@@ -280,7 +282,8 @@ footerLinks.forEach(link => {
                                             headers: {
                                                 'content-type': 'application/json'
                                             },
-                                            body: JSON.stringify(wish)
+                                            body: JSON.stringify(wish),
+                                            credentials: "include"
                                         })
                                             .then(res => { return res.text() })
                                             .then(data => showPopup(data))
