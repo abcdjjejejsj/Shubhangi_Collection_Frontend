@@ -136,7 +136,9 @@ footerLinks.forEach(link => {
     document.getElementById('submit').addEventListener('click', () => {
       // event.preventDefault(); // Prevent the form from refreshing the page
       console.log("hello world")
-      fetch(`${Backend_URL}/validateUser`)
+      fetch(`${Backend_URL}/validateUser`,{
+        credentials: "include"
+      })
       .then(res=>{return res.text()})
       .then(data=>{
         console.log("vvv : ",data);
@@ -179,7 +181,8 @@ footerLinks.forEach(link => {
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify(newAppointment)
+        body: JSON.stringify(newAppointment),
+        credentials: "include"
       })
         .then(res => { return res.text() })
         .then(data => {
