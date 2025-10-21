@@ -346,7 +346,8 @@ footerLinks.forEach(link => {
                                     fetch(`${Backend_URL}/cart/add`, {
                                         method: "POST",
                                         headers: { 'content-type': 'application/json' },
-                                        body: JSON.stringify({ Product: obj.Product_Name, quantity: 1 })
+                                        body: JSON.stringify({ Product: obj.Product_Name, quantity: 1 }),
+                                        credentials: "include"
                                     })
                                         .then(res => res.text())
                                         .then(res => showPopup(res))
@@ -446,6 +447,7 @@ console.log("Loaded images:", images);
                                 method: "POST",
                                 headers: { "content-type": "application/json" },
                                 body: JSON.stringify({ Product: product.Product_Name, quantity: 1 }),
+                                credentials: "include"
                             })
                                 .then((res) => res.text())
                                 .then(showPopup)
@@ -464,6 +466,7 @@ console.log("Loaded images:", images);
                                     Name: product.Product_Name,
                                     Price: product.Product_Price,
                                 }),
+                                credentials: "include"
                             })
                                 .then((res) => res.text())
                                 .then(showPopup)
