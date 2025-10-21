@@ -3,310 +3,307 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & Registration - Shubhangi Collection</title>
-    <!-- START: External Fonts and Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <!-- END: External Fonts and Icons -->
-    <!-- START: External CSS -->
-    <link rel="stylesheet" href="register.css">
-    <!-- END: External CSS -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Registration - Shubhangi Collection</title>
+  <!-- START: External Fonts and Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <!-- END: External Fonts and Icons -->
+  <!-- START: External CSS -->
+  <link rel="stylesheet" href="register.css">
+  <!-- END: External CSS -->
 </head>
 <script src="./config.js"></script>
 
 <body>
-    <!-- START: Header Section -->
-    <header class="header">
-        <a href="/" class="logo">Shubhangi<span>Collection</span></a>
+  <!-- START: Header Section -->
+  <header class="header">
+    <a href="/" class="logo">Shubhangi<span>Collection</span></a>
 
-        <div class="nav-menu1">
-            <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">☰</div>
-            <nav id="nav-menu" class="nav-menu">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="https://shubhangi-collection-backend.onrender.com/collection">Collection</a></li>
-                    <li><a href="https://shubhangi-collection-backend.onrender.com/booking">Beauty Parlour</a></li>
-                    <li><a href="https://shubhangi-collection-backend.onrender.com/api/user/order">Orders</a></li>
-                    <li><a href="https://shubhangi-collection-backend.onrender.com/contact">Contact</a></li>
-                </ul>
-            </nav>
+    <div class="nav-menu1">
+      <div id="toggle-Link" class="toggle-Link" onclick="togglelink()">☰</div>
+      <nav id="nav-menu" class="nav-menu">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="https://shubhangi-collection-backend.onrender.com/collection">Collection</a></li>
+          <li><a href="https://shubhangi-collection-backend.onrender.com/booking">Beauty Parlour</a></li>
+          <li><a href="https://shubhangi-collection-backend.onrender.com/api/user/order">Orders</a></li>
+          <li><a href="https://shubhangi-collection-backend.onrender.com/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="nav-icons">
+        <a href="https://shubhangi-collection-backend.onrender.com/api/user/wishlist" class="icon wishlist-icon"><i
+            class="fas fa-heart"></i></a>
+        <a href="https://shubhangi-collection-backend.onrender.com/api/user/cart" class="icon cart-icon"><i
+            class="fas fa-shopping-bag"></i></a>
+      </div>
+    </div>
+  </header>
+  <!-- END: Header Section -->
+
+  <!-- START: Main Content - Login/Registration Container -->
+  <main class="login-registration-wrapper">
+
+    <div class="auth-container" id="authContainer">
+      <!-- START: Registration Form -->
+      <div class="form-container sign-up-container">
+
+        <!-- <form id="registrationForm" action="/api/signup" method="POST"> -->
+        <form>
+          <h2>Registration</h2>
+          <div class="input-group">
+            <i class="fas fa-user icon"></i>
+            <input type="text" placeholder="Username" id="regUsername" name="name" required />
+          </div>
+
+          <div class="input-group">
+            <i class="fas fa-envelope icon"></i>
+            <input type="email" placeholder="Email" id="regEmail" name="email" required />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-phone icon"></i>
+            <input type="tel" placeholder="Mobile Number" id="regMobile" name="mobile" pattern="[0-9]{10}" required />
+          </div>
+
+          <div class="input-group">
+            <i class="fas fa-solid fa-location-dot icon"></i>
+            <input type="text" placeholder="Address" id="address" name="address" required />
+          </div>
+
+
+          <div class="input-group">
+            <i class="fas fa-lock icon"></i>
+            <input type="password" placeholder="Password" id="regPassword" name="password" required />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock icon"></i>
+            <input type="password" placeholder="Confirm Password" id="regConfirmPassword" name="conPassword" required />
+          </div>
+
+          <button type="button" onclick="registered()">Register</button>
+          <p class="mobile-switch">
+            Already have an account? <a href="#" id="mobileSignIn">Login</a>
+          </p>
+
+        </form>
+      </div>
+      <!-- END: Registration Form -->
+
+      <!-- START: Login Form -->
+      <div class="form-container sign-in-container">
+        <form id="loginForm">
+          <h2>Login</h2>
+          <div class="input-group">
+            <i class="fas fa-user icon"></i>
+            <input type="email" placeholder="Email" id="loginEmail" required />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock icon"></i>
+            <input type="password" placeholder="Password" id="loginPassword" required />
+          </div>
+          <a href="#">Forgot your password?</a>
+          <button type="button" onClick="login()">Login</button>
+          <p class="mobile-switch">
+            Don't have an account? <a href="#" id="mobileSignUp">Register</a>
+          </p>
+        </form>
+      </div>
+      <!-- END: Login Form -->
+
+      <!-- START: Sliding Overlay Panel -->
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h2>Welcome Back!</h2>
+            <p>Already have an account?</p>
+            <button class="ghost" id="signIn">Login</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h2>Hello, Welcome!</h2>
+            <p>Don't have an account?</p>
+            <button class="ghost" id="signUp">Register</button>
+          </div>
         </div>
+      </div>
+      <!-- END: Sliding Overlay Panel -->
+    </div>
+  </main>
+  <!-- END: Main Content - Login/Registration Container -->
+  <script>
+    // ===== Navigation Toggle =====
+    const nav = document.getElementById("nav-menu");
+    const toggleBtn = document.getElementById("toggle-Link");
 
-        <div class="header-right">
-            <div class="nav-icons">
-                <a href="https://shubhangi-collection-backend.onrender.com/api/user/wishlist" class="icon wishlist-icon"><i class="fas fa-heart"></i></a>
-                <a href="https://shubhangi-collection-backend.onrender.com/api/user/cart" class="icon cart-icon"><i class="fas fa-shopping-bag"></i></a>
-            </div>
-        </div>
-    </header>
-    <!-- END: Header Section -->
+    function togglelink() {
+      nav.classList.toggle("show1");
+      document.body.classList.toggle("no-scroll");
+      toggleBtn.classList.toggle("active");
 
-    <!-- START: Main Content - Login/Registration Container -->
-    <main class="login-registration-wrapper">
+      // Toggle icon text
+      toggleBtn.innerHTML = toggleBtn.classList.contains("active") ? "✖" : "☰";
 
-        <div class="auth-container" id="authContainer">
-            <!-- START: Registration Form -->
-            <div class="form-container sign-up-container">
+      // Accessibility toggle
+      toggleBtn.setAttribute("aria-expanded", toggleBtn.classList.contains("active"));
+    }
 
-                <!-- <form id="registrationForm" action="/api/signup" method="POST"> -->
-                <form>
-                    <h2>Registration</h2>
-                    <div class="input-group">
-                        <i class="fas fa-user icon"></i>
-                        <input type="text" placeholder="Username" id="regUsername" name="name" required />
-                    </div>
-
-                    <div class="input-group">
-                        <i class="fas fa-envelope icon"></i>
-                        <input type="email" placeholder="Email" id="regEmail" name="email" required />
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-phone icon"></i>
-                        <input type="tel" placeholder="Mobile Number" id="regMobile" name="mobile" pattern="[0-9]{10}"
-                            required />
-                    </div>
-
-                    <div class="input-group">
-                        <i class="fas fa-solid fa-location-dot icon"></i>
-                        <input type="text" placeholder="Address" id="address" name="address" required />
-                    </div>
-
-
-                    <div class="input-group">
-                        <i class="fas fa-lock icon"></i>
-                        <input type="password" placeholder="Password" id="regPassword" name="password" required />
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-lock icon"></i>
-                        <input type="password" placeholder="Confirm Password" id="regConfirmPassword" name="conPassword"
-                            required />
-                    </div>
-                    
-                    <button type="button" onclick="registered()">Register</button>
-                    <p class="mobile-switch">
-                        Already have an account? <a href="#" id="mobileSignIn">Login</a>
-                    </p>
-                    
-                </form>
-            </div>
-            <!-- END: Registration Form -->
-
-            <!-- START: Login Form -->
-            <div class="form-container sign-in-container">
-                <form id="loginForm">
-                    <h2>Login</h2>
-                    <div class="input-group">
-                        <i class="fas fa-user icon"></i>
-                        <input type="email" placeholder="Email" id="loginEmail" required />
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-lock icon"></i>
-                        <input type="password" placeholder="Password" id="loginPassword" required />
-                    </div>
-                    <a href="#">Forgot your password?</a>
-                    <button type="button" onClick="login()">Login</button>
-                    <p class="mobile-switch">
-                        Don't have an account? <a href="#" id="mobileSignUp">Register</a>
-                    </p>
-                </form>
-            </div>
-            <!-- END: Login Form -->
-
-            <!-- START: Sliding Overlay Panel -->
-            <div class="overlay-container">
-                <div class="overlay">
-                    <div class="overlay-panel overlay-left">
-                        <h2>Welcome Back!</h2>
-                        <p>Already have an account?</p>
-                        <button class="ghost" id="signIn">Login</button>
-                    </div>
-                    <div class="overlay-panel overlay-right">
-                        <h2>Hello, Welcome!</h2>
-                        <p>Don't have an account?</p>
-                        <button class="ghost" id="signUp">Register</button>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Sliding Overlay Panel -->
-        </div>
-    </main>
-    <!-- END: Main Content - Login/Registration Container -->
-    <script>
-        // ===== Navigation Toggle =====
-        const nav = document.getElementById("nav-menu");
-        const toggleBtn = document.getElementById("toggle-Link");
-
-        function togglelink() {
-            nav.classList.toggle("show1");
-            document.body.classList.toggle("no-scroll");
-            toggleBtn.classList.toggle("active");
-
-            // Toggle icon text
-            toggleBtn.innerHTML = toggleBtn.classList.contains("active") ? "✖" : "☰";
-
-            // Accessibility toggle
-            toggleBtn.setAttribute("aria-expanded", toggleBtn.classList.contains("active"));
-        }
-
-        // START: Custom Popup Function (replaces alert/confirm)
-        function showPopup(message) {
-            const popup = document.createElement("div");
-            popup.className = "popup";
-            popup.innerHTML = `
+    // START: Custom Popup Function (replaces alert/confirm)
+    function showPopup(message) {
+      const popup = document.createElement("div");
+      popup.className = "popup";
+      popup.innerHTML = `
                 <div class="popup-content">
                     <p>${message}</p>
                     <button class="popup-btn">OK</button>
                 </div>
             `;
-            document.body.appendChild(popup);
+      document.body.appendChild(popup);
 
-            popup.querySelector(".popup-btn").addEventListener("click", () => {
-                popup.remove();
-                if (message === "Login successfully" || message === "User registered successfully") {
-    window.location.href = "https://shubhangi-collection.vercel.app/collection.html";
-} else if (message === "Login successfully ") {
-    window.location.href = "/admin";
-} else if (message === "Delivery Login successfully") {   // <- add case
-    window.location.href = "/d_boy.html";
-}
-
-
-
-            });
-        }
-        // END: Custom Popup Function
-
-        function registered() {
-            let name = document.getElementById("regUsername").value;
-            let email = document.getElementById("regEmail").value;
-            let mobile = document.getElementById("regMobile").value;
-            let address = document.getElementById("address").value;
-            let password = document.getElementById("regPassword").value;
-            let conPassword = document.getElementById("regConfirmPassword").value;
-            let today = new Date().toISOString().split("T")[0];
-            
-
-            const newUser = {
-                name: name,
-                email: email,
-                mobile: mobile,
-                address:address,
-                password: password,
-                conPassword: conPassword,
-                date:today
-            }
-
-            if(password != conPassword)
-            {
-                showPopup("Password mismatch !");
-            }else{
-                fetch(`${Backend_URL}/api/signup`, {
-                method: "POST",
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(newUser)
-
-            })
-            .then((res) => res.text())
-            .then((data) => {
-                showPopup(data);
-               })
-            }
-            
-            
-
-
+      popup.querySelector(".popup-btn").addEventListener("click", () => {
+        popup.remove();
+        if (message === "Login successfully" || message === "User registered successfully") {
+          window.location.href = "https://shubhangi-collection.vercel.app/collection.html";
+        } else if (message === "Login successfully ") {
+          window.location.href = "/admin";
+        } else if (message === "Delivery Login successfully") {   // <- add case
+          window.location.href = "/d_boy.html";
         }
 
-        function login() {
-            let email = document.getElementById("loginEmail").value;
-            let password = document.getElementById("loginPassword").value;
 
-            const oldUser = {
-                email: email,
-                password: password
-            }
-            fetch(`${Backend_URL}/api/signin`, {
-                method: "POST",
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(oldUser)
 
-            })
-            .then((res) => res.text())
-            .then((data) => {
-                showPopup(data);
-                // localStorage.setItem("token", data.token);
-               })
+      });
+    }
+    // END: Custom Popup Function
 
-        }
+    function registered() {
+      let name = document.getElementById("regUsername").value;
+      let email = document.getElementById("regEmail").value;
+      let mobile = document.getElementById("regMobile").value;
+      let address = document.getElementById("address").value;
+      let password = document.getElementById("regPassword").value;
+      let conPassword = document.getElementById("regConfirmPassword").value;
+      let today = new Date().toISOString().split("T")[0];
 
-        toggleBtn.setAttribute("role", "button");
-        toggleBtn.setAttribute("aria-controls", "nav-menu");
-        toggleBtn.setAttribute("aria-expanded", "false");
 
-        // ===== Auth Form Toggle =====
-        const authContainer = document.getElementById('authContainer');
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const mobileSignUp = document.getElementById('mobileSignUp');
-        const mobileSignIn = document.getElementById('mobileSignIn');
+      const newUser = {
+        name: name,
+        email: email,
+        mobile: mobile,
+        address: address,
+        password: password,
+        conPassword: conPassword,
+        date: today
+      }
 
-        function showSignUpMobile(e) {
-            e.preventDefault();
-            authContainer.classList.add('show-signup');
-        }
+      if (password != conPassword) {
+        showPopup("Password mismatch !");
+      } else {
+        fetch(`${Backend_URL}/api/signup`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newUser),
+          credentials: "include",
+        })
 
-        function showSignInMobile(e) {
-            e.preventDefault();
-            authContainer.classList.remove('show-signup');
-        }
+          .then((res) => res.text())
+          .then((data) => {
+            showPopup(data);
+          })
+      }
 
-        function showSignUpDesktop() {
-            authContainer.classList.add('right-panel-active');
-        }
 
-        function showSignInDesktop() {
-            authContainer.classList.remove('right-panel-active');
-        }
 
-        function applyToggleListeners() {
-            // Remove all previous listeners first
-            signUpButton.removeEventListener('click', showSignUpMobile);
-            signInButton.removeEventListener('click', showSignInMobile);
-            mobileSignUp.removeEventListener('click', showSignUpMobile);
-            mobileSignIn.removeEventListener('click', showSignInMobile);
 
-            signUpButton.removeEventListener('click', showSignUpDesktop);
-            signInButton.removeEventListener('click', showSignInDesktop);
+    }
 
-            if (window.innerWidth <= 768) {
-                // Mobile listeners
-                signUpButton.addEventListener('click', showSignUpMobile);
-                signInButton.addEventListener('click', showSignInMobile);
-                mobileSignUp.addEventListener('click', showSignUpMobile);
-                mobileSignIn.addEventListener('click', showSignInMobile);
-            } else {
-                // Desktop listeners
-                signUpButton.addEventListener('click', showSignUpDesktop);
-                signInButton.addEventListener('click', showSignInDesktop);
-            }
-        }
+    function login() {
+      let email = document.getElementById("loginEmail").value;
+      let password = document.getElementById("loginPassword").value;
 
-        // Initial setup
-        applyToggleListeners();
+      const oldUser = {
+        email: email,
+        password: password
+      }
+      fetch(`${Backend_URL}/api/signin`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(oldUser),
+        credentials: "include",
+      })
 
-        // Re-apply listeners when screen size changes
-        window.addEventListener('resize', applyToggleListeners);
-    </script>
+        .then((res) => res.text())
+        .then((data) => {
+          showPopup(data);
+          // localStorage.setItem("token", data.token);
+        })
+
+    }
+
+    toggleBtn.setAttribute("role", "button");
+    toggleBtn.setAttribute("aria-controls", "nav-menu");
+    toggleBtn.setAttribute("aria-expanded", "false");
+
+    // ===== Auth Form Toggle =====
+    const authContainer = document.getElementById('authContainer');
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const mobileSignUp = document.getElementById('mobileSignUp');
+    const mobileSignIn = document.getElementById('mobileSignIn');
+
+    function showSignUpMobile(e) {
+      e.preventDefault();
+      authContainer.classList.add('show-signup');
+    }
+
+    function showSignInMobile(e) {
+      e.preventDefault();
+      authContainer.classList.remove('show-signup');
+    }
+
+    function showSignUpDesktop() {
+      authContainer.classList.add('right-panel-active');
+    }
+
+    function showSignInDesktop() {
+      authContainer.classList.remove('right-panel-active');
+    }
+
+    function applyToggleListeners() {
+      // Remove all previous listeners first
+      signUpButton.removeEventListener('click', showSignUpMobile);
+      signInButton.removeEventListener('click', showSignInMobile);
+      mobileSignUp.removeEventListener('click', showSignUpMobile);
+      mobileSignIn.removeEventListener('click', showSignInMobile);
+
+      signUpButton.removeEventListener('click', showSignUpDesktop);
+      signInButton.removeEventListener('click', showSignInDesktop);
+
+      if (window.innerWidth <= 768) {
+        // Mobile listeners
+        signUpButton.addEventListener('click', showSignUpMobile);
+        signInButton.addEventListener('click', showSignInMobile);
+        mobileSignUp.addEventListener('click', showSignUpMobile);
+        mobileSignIn.addEventListener('click', showSignInMobile);
+      } else {
+        // Desktop listeners
+        signUpButton.addEventListener('click', showSignUpDesktop);
+        signInButton.addEventListener('click', showSignInDesktop);
+      }
+    }
+
+    // Initial setup
+    applyToggleListeners();
+
+    // Re-apply listeners when screen size changes
+    window.addEventListener('resize', applyToggleListeners);
+  </script>
 
 </body>
 
