@@ -183,7 +183,10 @@ function setPic() {
             let profile_sec=document.getElementById("prof");
             profile_sec.innerHTML="";
             
-            fetch(`${Backend_URL}/api/loadData/profile`)
+           fetch(`${Backend_URL}/api/loadData/profile`, {
+  method: "GET",
+  credentials: "include"   
+})
                 .then(res => { return res.json() })
                 .then(user => {
                     console.log("user =>",user)
@@ -229,7 +232,10 @@ function setPic() {
 
         }
         function loadOrder() {
-            fetch(`${Backend_URL}/order/getUserOrder`)
+            fetch(`${Backend_URL}/order/getUserOrder`, {
+  method: "GET",
+  credentials: "include"   
+})
                 .then(res => res.json())
                 .then(data => {
                     console.log("orderrrr  : ", data);
@@ -281,7 +287,10 @@ function setPic() {
         }
         function loadAppointment() {
     // NOTE: You must replace this with your actual API endpoint for user appointments
-    fetch(`${Backend_URL}/parlor/getApp`) 
+    fetch(`${Backend_URL}/parlor/getApp`, {
+  method: "GET",
+  credentials: "include"   
+}) 
         .then(res => res.json())
         .then(data => {
             console.log("appointments : ", data);
