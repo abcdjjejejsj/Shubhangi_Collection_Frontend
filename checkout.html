@@ -246,7 +246,7 @@ footerLinks.forEach(link => {
     // ---------------- USER DATA ----------------
     async function loadCheckoutData() {
       try {
-        const userRes = await fetch(`${Backend_URL}/api/loadData/profile`);
+        const userRes = await fetch(`${Backend_URL}/api/loadData/profile`,{credentials: "include"});
         const user = await userRes.json();
         document.getElementById("user-name").textContent = user.name || "Guest";
         document.getElementById("user-phone").textContent = user.mobile || "";
