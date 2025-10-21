@@ -157,7 +157,8 @@ footerLinks.forEach(link => {
         headers:{
           'content-type':'application/json'
         },
-        body:JSON.stringify(obj)
+        body:JSON.stringify(obj),
+        credentials: "include"
       })
       .then(res=>{return res.text()})
       .then(res=>{
