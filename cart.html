@@ -133,7 +133,7 @@ footerLinks.forEach(link => {
     }
     let products = []
     function loadProduct() {
-      fetch(`${Backend_URL}/cart/cartProducts`)
+      fetch(`${Backend_URL}/cart/cartProducts`,{credentials: "include"})
         .then(res => { return res.json() })
         .then(res => {
           // products=res;
@@ -204,7 +204,8 @@ footerLinks.forEach(link => {
                 headers: {
                   'content-type': 'application/json'
                 },
-                body:JSON.stringify(up)
+                body:JSON.stringify(up),
+                credentials: "include"
               })
               .then(res=>{return res.text()})
               .then(res=>{
@@ -230,7 +231,8 @@ footerLinks.forEach(link => {
                 headers: {
                   'content-type': 'application/json'
                 },
-                body:JSON.stringify({name:obj.Product_Name})
+                body:JSON.stringify({name:obj.Product_Name}),
+                 credentials: "include"
               })
               .then(res=>{return res.text()})
               .then(res=>{
