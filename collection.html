@@ -334,7 +334,7 @@ footerLinks.forEach(link => {
                     btn.className = "btn btn-primary add-to-cart-btn";
                     btn.textContent = "Add to Cart";
                     btn.addEventListener("click", () => {
-                        fetch(`${Backend_URL}/validateUser`)
+                        fetch(`${Backend_URL}/validateUser`,{credentials: "include"})
                             .then(res => { return res.text() })
                             .then(data => {
                                 if (data != "success") {
