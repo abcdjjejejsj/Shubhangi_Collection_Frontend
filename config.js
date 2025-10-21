@@ -5,7 +5,7 @@ const isLocalhost =
 console.log("hello host : ",isLocalhost);
 const API_BASE_URL = isLocalhost
   ? "http://localhost:3400" // local backend
-  : "https://your-backend.vercel.app"; // hosted backend
+  : "https://shubhangi-collection-backend.onrender.com/"; // hosted backend
 
 // make it globally accessible
 window.Backend_URL = API_BASE_URL;
