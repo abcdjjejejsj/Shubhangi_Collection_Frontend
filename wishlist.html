@@ -109,7 +109,7 @@ footerLinks.forEach(link => {
 
     async function loadWishlist() {
       try {
-        const response = await fetch(`${Backend_URL}/wish/wishProducts`); // use your correct API
+        const response = await fetch(`${Backend_URL}/wish/wishProducts`,{credentials: "include"}); // use your correct API
         const products = await response.json();
 
         const container = document.getElementById("wishlist-products-grid");
@@ -148,7 +148,8 @@ footerLinks.forEach(link => {
             fetch(`${Backend_URL}/cart/add`, {
               method: "POST",
               headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ Product: product.Product_Name, quantity: 1 })
+              body: JSON.stringify({ Product: product.Product_Name, quantity: 1 }),
+              credentials: "include"
 
             })
             .then(res => res.text())
@@ -171,7 +172,8 @@ footerLinks.forEach(link => {
             fetch(`${Backend_URL}/wish/remove`, {
               method: "delete",
               headers: { "Content-Type": "application/json" },
-              body:JSON.stringify({name:name})
+              body:JSON.stringify({name:name}),
+              credentials: "include"
             })
             .then(res=>{return res.text()})
             .then(data=>{console.log("data :",data);
