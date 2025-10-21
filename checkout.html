@@ -176,7 +176,7 @@ footerLinks.forEach(link => {
     // ---------------- CART HANDLING ----------------
     async function loadCartItems() {
       try {
-        const res = await fetch(`${Backend_URL}/cart/cartProducts`);
+        const res = await fetch(`${Backend_URL}/cart/cartProducts`,{credentials: "include"});
         if (!res.ok) throw new Error("Cart load failed");
         const cartItems = await res.json();
         console.log("cartItems : ", cartItems);
@@ -311,7 +311,8 @@ let val=true;
         const res = await fetch(`${Backend_URL}/order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderInfo)
+        body: JSON.stringify(orderInfo),
+          credentials: "include"
       });
 
       const order = await res.json();
@@ -355,7 +356,8 @@ console.log("num :",num); // 450
       headers:{
         'content-type':'application/json'
       },
-      body:JSON.stringify({code:code})
+      body:JSON.stringify({code:code}),
+        credentials: "include"
      })
      .then(res=>res.json())
      .then(data=>{
