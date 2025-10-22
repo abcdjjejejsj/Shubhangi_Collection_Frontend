@@ -18,6 +18,7 @@
                                       method: "GET",
                                       credentials: "include" // this sends cookies to Render
                                     });
+                console.log("rsponse to verify : :",res);
                 const data=await res.json();
                 console.log("vali : ",data);
                 if(!data.ok)
