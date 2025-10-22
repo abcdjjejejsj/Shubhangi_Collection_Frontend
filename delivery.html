@@ -273,8 +273,9 @@ function getCurrentDateFormatted() {
       // IMPORTANT: The actual listeners are now added inside loadData() 
             // after the cards are dynamically created.
     });
-        loadData();
+        
         document.addEventListener('DOMContentLoaded', function() {
+            loadData();
             // ======================= NAVIGATION TOGGLE =======================
             const navMenu = document.getElementById('nav-menu');
             const toggleBtn = document.getElementById('toggle-Link');
