@@ -16,6 +16,7 @@
             {
                 const res=await fetch("https://shubhangi-collection-backend.onrender.com/verify");
                 const data=await res.json();
+                console.log("vali : ",data);
                 if(!data.ok)
                 {
                     window.location.href = "/register.html";
