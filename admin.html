@@ -14,8 +14,12 @@
     <script>
         async function validate()
             {
-                const res=await fetch("https://shubhangi-collection-backend.onrender.com/admin");
-                console.log("get out");
+                const res=await fetch("https://shubhangi-collection-backend.onrender.com/verify");
+                cost data=await res.json();
+                if(!data.ok)
+                {
+                    window.location.href = "/register.html";
+                }
             }
         validate();
     </script>
