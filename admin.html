@@ -14,7 +14,10 @@
     <script>
         async function validate()
             {
-                const res=await fetch("https://shubhangi-collection-backend.onrender.com/verify");
+                 const res = await fetch("https://shubhangi-collection-backend.onrender.com/verify", {
+                                      method: "GET",
+                                      credentials: "include" // this sends cookies to Render
+                                    });
                 const data=await res.json();
                 console.log("vali : ",data);
                 if(!data.ok)
