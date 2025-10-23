@@ -17,8 +17,15 @@
 <script src="./config.js"></script>
 <script>
     fetch(`https://shubhangi-collection-backend.onrender.com/verifyUser`,{credentials:"include"})
+    .then(res=>res.json())
     .then(res=>{
         console.log("hello verifying....");
+        if(!res.success)
+    {
+        window.location.href="/index.html";
+    }else{
+        console.log("errrrrrrrrrrrrrrrrrrrrrrrrrr");
+    }
     })
     .catch(err=>{
         console.log("error in mobile :",err);
