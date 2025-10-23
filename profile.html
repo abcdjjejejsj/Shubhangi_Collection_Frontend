@@ -520,11 +520,13 @@ document.getElementById("editProfileForm").addEventListener("submit", function (
     // Close modal
     document.getElementById("editProfileModal").style.display = "none";
 }
-
     
     
   })
-  .catch(err => alert("Error updating profile: " + err));
+  .catch(err => {
+    alert("Error updating profile: " + err);
+    console.log("photo :",err);
+  });
 });
 
 // Handle Change Password form submit
