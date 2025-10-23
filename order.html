@@ -20,9 +20,10 @@
     .then(res=>res.json())
     .then(res=>{
         console.log("hello verifying....");
+        console.log("see on mobile :",res);
         if(!res.success)
     {
-        window.location.href="/index.html";
+        // window.location.href="/index.html";
     }else{
         console.log("errrrrrrrrrrrrrrrrrrrrrrrrrr");
     }
