@@ -781,6 +781,10 @@ function loadCustomer() {
         for (k in obj) {
           if (k != "_id" && k != "password" && k != "confirmPassword" && k != "__v" && k!="Image") {
             td = document.createElement("td");
+                      td.style.display = "flex";
+td.style.flexWrap = "wrap";
+td.style.minWidth = "0";
+
             td.setAttribute("data-label", k);
             td.textContent = obj[k];
             row.append(td);
