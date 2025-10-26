@@ -781,13 +781,17 @@ function loadCustomer() {
         for (k in obj) {
           if (k != "_id" && k != "password" && k != "confirmPassword" && k != "__v" && k!="Image") {
             td = document.createElement("td");
-                      td.style.display = "flex";
-td.style.flexWrap = "wrap";
-td.style.minWidth = "0";
+                     const innerDiv = document.createElement("div");
+    innerDiv.textContent = obj[k];
 
-            td.setAttribute("data-label", k);
-            td.textContent = obj[k];
-            row.append(td);
+    // Apply wrapping styles here
+    innerDiv.style.wordWrap = "break-word";
+    innerDiv.style.overflowWrap = "break-word";
+    innerDiv.style.whiteSpace = "normal";
+    innerDiv.style.maxWidth = "200px"; // adjust as needed
+
+    td.append(innerDiv);
+    row.append(td);
           }
         }
         td = document.createElement("td");
