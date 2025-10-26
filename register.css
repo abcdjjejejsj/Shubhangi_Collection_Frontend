@@ -818,3 +818,64 @@ button.ghost:hover {
     transform: scale(0.97);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
+
+
+#addr{
+    /* border:2px solid rgb(238, 239, 238); */
+    display: flex;
+    flex-wrap: wrap;
+    width:300px;
+    gap:10px;
+    justify-content:center;
+    align-items: center;
+    height:300px;
+}
+
+#addr input{
+   width:120px;
+   text-align:start;
+}
+
+#city,
+#city1,#city2,#city3{
+    position:absolute;
+    
+}
+#city{
+    top:15px;
+    left:33px;
+}
+#city1{
+    top:15px;
+    left:165px;
+}
+#city2{
+   top:75px;
+    left:33px;
+}
+#city3{
+   top:75px;
+    left:165px;
+}
+#addr i{
+    color: rgb(152, 143, 143);
+}
+
+@media (max-width:768px) {
+    #city{
+    top:10px;
+    left:33px;
+}
+#city1{
+    top:10px;
+    left:165px;
+}
+#city2{
+   top:55px;
+    left:33px;
+}
+#city3{
+   top:55px;
+    left:165px;
+}
+}
