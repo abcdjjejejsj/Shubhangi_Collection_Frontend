@@ -738,3 +738,7 @@ nav {
   pointer-events: none;
   color: var(--primary-accent);
 }
+
+.textAd{
+  font-size:100px;
+}
