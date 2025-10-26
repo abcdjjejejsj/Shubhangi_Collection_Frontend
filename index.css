@@ -325,6 +325,9 @@ a:hover {
     margin-bottom: 30px;
     color: #fff;
 }
+.container {
+  overflow: hidden;
+}
 
 
 .category-grid,
@@ -335,29 +338,44 @@ a:hover {
     width: max-content;
 }
 
-.category-grid {
+/* .category-grid {
     animation: autoScroll 25s linear infinite;
 }
 
 .product-grid {
     animation: autoScroll 35s linear infinite;
+} */
+
+.category-grid {
+  animation: autoScroll 40s linear infinite;
+}
+.product-grid {
+  animation: autoScroll 50s linear infinite;
 }
 
+
 @keyframes autoScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
+
 
 .category-grid:hover,
 .product-grid:hover {
     animation-play-state: paused;
 }
 
-.container .category-grid,
+/* .container .category-grid,
 .container .product-grid {
     overflow: hidden;
     white-space: nowrap;
-}
+} */
+ 
+
 
 .container:has(.category-grid),
 .container:has(.product-grid) {
