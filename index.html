@@ -116,52 +116,12 @@
                 <h2>Pamper Yourself with Our Salon Services</h2>
                 <p>Indulge in a world of relaxation and beauty. Book your appointment today and let us take care of you.
                 </p>
-                <a href="/booking" class="btn btn-secondary">Book an Appointment</a>
+                <a href="/booking.html" class="btn btn-secondary">Book an Appointment</a>
             </div>
         </section>
         <!-- END: Salon Promo Section -->
 
-        <!-- START: Testimonials Section -->
-        <section class="testimonials">
-            <div class="container">
-                <h2 class="section-title">What Our Customers Say</h2>
-                <div class="testimonial-slider">
-                    <div class="testimonial-card">
-                        <img src="images/testimonial-1.jpg" alt="Customer 1">
-                        <h4>Priya Sharma</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p>"I absolutely adore my new jewelry set! The quality is amazing and it looks even better in
-                            person. Will definitely be a repeat customer."</p>
-                    </div>
-                    <!-- Add more testimonial cards here -->
-                    <div class="testimonial-card">
-                        <img src="https://placehold.co/80x80/FF6F61/FFFFFF?text=J.D." alt="Customer 2">
-                        <h4>John Doe</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p>"The beauty parlour services were fantastic! A truly relaxing experience and I left feeling
-                            refreshed and beautiful."</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <img src="https://placehold.co/80x80/E0E5C1/2E2E2E?text=A.K." alt="Customer 3">
-                        <h4>Anjali Kumari</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p>"Shubhangi Collection always has the latest trends. Their accessories are unique and
-                            high-quality. Highly recommend!"</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- END: Testimonials Section -->
-    </main>
+         </main>
     <!-- END: Main Content Section -->
 
     <!-- START: Footer Section -->
@@ -248,34 +208,21 @@ footerLinks.forEach(link => {
                 .then((res) => { return res.json() })
                 .then(data => {
                     console.log("category on index:", data);
-                    data.forEach(category => {
-                        let a = document.createElement("a");
-                        a.className = "category-card";
-                        a.style.cursor = "pointer";
-                        a.href = `/collection?category=${category.Category_Name}`;
-                        let img = document.createElement("img");
-                        fetch(`${Backend_URL}/product/getTableData`)
-                            .then(prod => { return prod.json() })
-                            .then(prod => {
-                                // Find the first product matching this category
-                                let product = prod.find(obj => obj.Product_Category == category.Category_Name);
-                                if (product) {
-                                    img.src = `${product.Product_Images[0]}`;
-                                    a.append(img);
-                                }
-
-                                // Append the category name only once
-                                let h3 = document.createElement("h3");
-                                h3.textContent = category.Category_Name;
-                                a.append(h3);
-
-                            })
-
-
-                        cat.append(a);
-                    })
-
-
+                    // Create categories twice for infinite loop
+                    for(let i = 0; i < 2; i++) {
+                        data.forEach(category => {
+                            let a = document.createElement("a");
+                            a.className = "category-card";
+                            a.style.cursor = "pointer";
+                            a.href = `/collection?category=${category.Category_Name}`;
+                            
+                            let h3 = document.createElement("h3");
+                            h3.textContent = category.Category_Name;
+                            a.append(h3);
+                            
+                            cat.append(a);
+                        })
+                    }
                 })
                 .catch(err => {
                     document.write("Category Not found");
@@ -287,23 +234,25 @@ footerLinks.forEach(link => {
             trend.innerHTML
                 fetch(`${Backend_URL}/product/getTableData`)
                     .then(res => res.json())
-                    .then(data => {
-                        data.forEach(obj=>{
-                            if(obj.Product_Trend=="Yes")
-                        {
-                            let card=`
-                         <a href="https://shubhangi-collection-backend.onrender.com/collection" class="product-card">
-                    <img src="${obj.Product_Images[0]}" alt="Rose Gold Earrings" class="product-card-img">
-                    <div class="product-info">
-                        <h3>${obj.Product_Name}</h3>
-                        <p>Rs.${obj.Product_Price}</p>
-                    </div>
-                </a>
-                        `;
-                        trend.innerHTML+=card;
-                        }
+                    .then(res => res.json())
+                .then(data => {
+                    let trendingItems = data.filter(obj => obj.Product_Trend === "Yes");
+                    // Create trending items twice for infinite loop
+                    for(let i = 0; i < 2; i++) {
+                        trendingItems.forEach(obj => {
+                            let card = `
+                                <a href="/collection" class="product-card">
+                                    <img src="${obj.Product_Images[0]}" alt="${obj.Product_Name}" class="product-card-img">
+                                    <div class="product-info">
+                                        <h3>${obj.Product_Name}</h3>
+                                        <p>Rs.${obj.Product_Price}</p>
+                                    </div>
+                                </a>
+                            `;
+                            trend.innerHTML += card;
                         })
-                    })
+                    }
+                })
                 .catch(err => {
                     document.write("Category Not found");
                 })
