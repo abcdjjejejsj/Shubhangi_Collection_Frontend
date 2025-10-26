@@ -739,8 +739,4 @@ nav {
   color: var(--primary-accent);
 }
 
-.textAd{
-  /* font-size:100px; */
-  display:flex;
-  flex-wrap:wrap;
-}
+
