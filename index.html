@@ -234,9 +234,8 @@ footerLinks.forEach(link => {
             let trend = document.getElementById("trendingSection");
             trend.innerHTML
                 fetch(`${Backend_URL}/product/getTableData`)
-                    .then(res => res.json())
-                    .then(res => res.json())
-                .then(data => {
+                    .then(res => res.json())  
+                    .then(data => {
                     let trendingItems = data.filter(obj => obj.Product_Trend === "Yes");
                     // Create trending items twice for infinite loop
                     for(let i = 0; i < 2; i++) {
