@@ -74,8 +74,15 @@
           </div>
 
           <div class="input-group">
-            <i class="fas fa-solid fa-location-dot icon"></i>
-            <input type="text" placeholder="Address" id="address" name="address" required />
+            <i class="fa-solid fa-city" id="city"></i>
+                        <i class="fa-solid fa-city" id="city1"></i>
+                        <i class="fa-solid fa-city" id="city2"></i>
+                        <i class="fa-solid fa-city" id="city3"></i>
+                        <input type="text" placeholder="City/Village/flat" id="address1" name="address" required />
+                        <input type="text" placeholder=Taluka" id="address2" name="address" required />
+                        <input type="text" placeholder="District" id="address3" name="address" required />
+                        <input type="text" placeholder="Pin Code" id="address4" name="address" required />
+                         
           </div>
 
 
@@ -186,7 +193,8 @@
       let name = document.getElementById("regUsername").value;
       let email = document.getElementById("regEmail").value;
       let mobile = document.getElementById("regMobile").value;
-      let address = document.getElementById("address").value;
+      let address = document.getElementById("address1").value+" "+" "+document.getElementById("address2").value+" "+document.getElementById("address3").value+" "+document.getElementById("address4").value;
+            let password = document.getElementById("regPassword").value;
       let password = document.getElementById("regPassword").value;
       let conPassword = document.getElementById("regConfirmPassword").value;
       let today = new Date().toISOString().split("T")[0];
