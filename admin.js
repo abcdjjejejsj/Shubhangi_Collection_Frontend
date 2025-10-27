@@ -839,6 +839,7 @@ function initCustomerManagement() {
 }
 
 function loadAppointments() {
+            console.log("updated at 1.08")
   const table = document.getElementById("appointmentsTable");
   const tbody = document.getElementById("appTable");
   tbody.innerHTML = "";
