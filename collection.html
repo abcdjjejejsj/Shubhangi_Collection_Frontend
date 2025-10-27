@@ -330,8 +330,16 @@ footerLinks.forEach(link => {
                     const p = document.createElement("p");
                     p.textContent = `₹${obj.Product_Price}`;
 
-                    const btn = document.createElement("button");
-                    btn.className = "btn btn-primary add-to-cart-btn";
+                    
+                    if(obj.Product_Status=="Inactive")
+                    {
+                      let txt=document.createElement("div");
+                      txt.textContent="currently unavailable"
+                      txt.style.color="red";
+                      div2.append(h3, span, p, txt);
+                    }else{
+                      const btn = document.createElement("button");
+                      btn.className = "btn btn-primary add-to-cart-btn";
                     btn.textContent = "Add to Cart";
                     btn.addEventListener("click", () => {
                         fetch(`${Backend_URL}/validateUser`,{credentials: "include"})
@@ -360,6 +368,8 @@ footerLinks.forEach(link => {
 
 
                     div2.append(h3, span, p, btn);
+                    }
+                    
                     div1.append(heart, img, div2);
                     div1.addEventListener("click", (e) => {
                         // Prevent popup when clicking buttons inside product card
