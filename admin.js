@@ -839,146 +839,136 @@ function initCustomerManagement() {
 }
 
 function loadAppointments() {
-  let table = document.getElementById("appointmentsTable");
-  let tbody = document.getElementById("appTable");
+  const table = document.getElementById("appointmentsTable");
+  const tbody = document.getElementById("appTable");
   tbody.innerHTML = "";
+
   fetch(`${Backend_URL}/parlor/sendData`)
-    .then((res) => { return res.json() })
-    .then((data) => {
-      if(data.length==0)
-  {
-    console.log("No orders found !");
-    return;
-  }else if(data.message)
-  {
-    console.log("server res for parlor/senddata fetching: ",data.message);
-    return;
-  }
-      console.log("beauty data :", data);
-      let row, td;
+    .then(res => res.json())
+    .then(data => {
+      if (data.length === 0) {
+        console.log("No orders found!");
+        return;
+      } else if (data.message) {
+        console.log("Server response for parlor/sendData fetching:", data.message);
+        return;
+      }
+
+      console.log("Beauty data:", data);
       let count = 1;
-      data.forEach((obj) => {
 
-        row = document.createElement("tr");
-        td = document.createElement("td");
+      data.forEach(obj => {
+        const row = document.createElement("tr");
+
+        // Sr. no
+        let td = document.createElement("td");
         td.setAttribute("data-label", "Sr.no");
-        td.textContent = count;
+        td.textContent = count++;
         row.append(td);
-        count++;
-        for (k in obj) {
 
-          if (k == "Service") {
-            console.log("1st obj : ", obj[k][0]);
-            console.log("2nd obj : ", obj[k][1]);
-
+        // Other fields
+        for (const k in obj) {
+          if (k === "Service") {
             td = document.createElement("td");
-            for (let i = 0; i < obj[k].length; i++) {
-              let span = document.createElement("span");
-              let br = document.createElement("br");
-              span.textContent = "=> " + obj[k][i];
+            obj[k].forEach(service => {
+              const span = document.createElement("span");
+              span.textContent = "=> " + service;
               td.append(span);
-              td.append(br);
-            }
-            // row.append(td);
-            // td = document.createElement("td");
-            // td.textContent="-"
-            // td.style.textAlign="center";
+              td.append(document.createElement("br"));
+            });
             row.append(td);
-
-
-          }
-          if (k != "_id" && k != "__v" && k != "Service") {
+          } else if (k !== "_id" && k !== "__v" && k !== "Service") {
             td = document.createElement("td");
             td.setAttribute("data-label", k);
             td.textContent = obj[k];
             row.append(td);
           }
         }
+
+        // Actions
         td = document.createElement("td");
         td.setAttribute("data-label", "Actions");
         td.className = "action-buttons";
 
-        let completed = document.createElement("button");
+        // ✅ Completed Button
+        const completed = document.createElement("button");
         completed.className = "btn btn-primary mark-replied-btn";
         completed.textContent = "Completed";
         completed.addEventListener("click", () => {
-          if (obj.Status == "pending") {
-            alert("hello");
+          if (obj.Status === "pending") {
             fetch(`${Backend_URL}/parlor/updateStatus`, {
               method: "POST",
-              headers: {
-                'content-type': 'application/json'
-              },
-              body: JSON.stringify({
-                id: obj._id
-              })
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ id: obj._id })
             })
-              .then(res => { return res.text() })
+              .then(res => res.text())
               .then(res => {
                 showPopup(res);
-                loadAppointments()
+                loadAppointments();
               })
               .catch(err => {
                 showPopup(err);
-
-                console.log("paro : ", err);
-              })
+                console.error("Error updating status:", err);
+              });
           }
-
-        })
-
+        });
         td.append(completed);
 
-        let btn = document.createElement("button");
-        btn.className = "btn btn-primary mark-replied-btn";
-        btn.textContent = "Add Beautician";
-
-        btn.addEventListener("click", () => {
+        // ✅ Add Beautician Button
+        const addBeauticianBtn = document.createElement("button");
+        addBeauticianBtn.className = "btn btn-primary mark-replied-btn";
+        addBeauticianBtn.textContent = "Add Beautician";
+        addBeauticianBtn.addEventListener("click", () => {
           showAddAppointmentForm();
-          document.getElementById("parlorSave").addEventListener("click", () => {
-            let name = document.getElementById("beauty").value;
-            console.log("beautician : ", name);
-            let b = document.getElementById("parlorSave");
-            b.addEventListener("click", () => {
-              console.log("hit the event");
-              fetch(`${Backend_URL}/parlor/updateBeautician`, {
-                method: "POST",
-                headers: {
-                  'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                  id: obj._id,
-                  Beautician: name
-                })
-              })
-                .then(res => { return res.text() })
-                .then(res => {
-                  showPopup(res);
-                  loadAppointments()
-                })
-                .catch(err => {
-                  showPopup(err);
-                  console.log("paro : ", err);
-                })
-
-            })
-          })
-
-
-        })
-
-        td.append(btn);
+          // Store the ID in the save button's dataset
+          const saveBtn = document.getElementById("parlorSave");
+          saveBtn.dataset.appointmentId = obj._id;
+        });
+        td.append(addBeauticianBtn);
 
         row.append(td);
         tbody.append(row);
-      })
-
+      });
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       showPopup(err);
-    })
+    });
 
+  // ✅ Attach save button handler ONCE
+  const saveBtn = document.getElementById("parlorSave");
+  if (!saveBtn.dataset.listenerAdded) {
+    saveBtn.addEventListener("click", () => {
+      const name = document.getElementById("beauty").value;
+      const appointmentId = saveBtn.dataset.appointmentId;
+
+      if (!appointmentId) {
+        alert("No appointment selected!");
+        return;
+      }
+
+      fetch(`${Backend_URL}/parlor/updateBeautician`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          id: appointmentId,
+          Beautician: name
+        })
+      })
+        .then(res => res.text())
+        .then(res => {
+          showPopup(res);
+          loadAppointments();
+        })
+        .catch(err => {
+          showPopup(err);
+          console.error("Error updating beautician:", err);
+        });
+    });
+
+    // Mark listener added so it's not added again
+    saveBtn.dataset.listenerAdded = "true";
+  }
 }
 
 // ====== Appointment Management ======
