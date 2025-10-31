@@ -257,7 +257,7 @@ footerLinks.forEach(link => {
 
                     heart.addEventListener('click', () => {
                         heart.classList.toggle('active');
-                        fetch(`${Backend_URL}/validateUser`,
+                        fetch(`${Backend_URL}/verifyUser`,
                               {credentials: "include"}
                              )
                             .then(res => { return res.text() })
@@ -342,7 +342,7 @@ footerLinks.forEach(link => {
                       btn.className = "btn btn-primary add-to-cart-btn";
                     btn.textContent = "Add to Cart";
                     btn.addEventListener("click", () => {
-                        fetch(`${Backend_URL}/validateUser`,{credentials: "include"})
+                        fetch(`${Backend_URL}/verifyUser`,{credentials: "include"})
                             .then(res => { return res.text() })
                             .then(data => {
                                 if (data != "success") {
