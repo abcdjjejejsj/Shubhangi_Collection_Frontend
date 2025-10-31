@@ -187,32 +187,7 @@ nav {
   font-weight: 600;
 }
 
-.admin-profile {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  order: 3;
-  /* Places it last */
-  flex-shrink: 0;
-}
 
-.admin-profile span {
-  font-size: 1rem;
-  color: var(--text-color-light);
-}
-
-.admin-profile img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 3px solid var(--primary-accent);
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.admin-profile img:hover {
-  transform: scale(1.05);
-}
 
 /* --- Dashboard Overview Cards --- */
 .dashboard-overview {
@@ -429,10 +404,7 @@ nav {
     /* Aligns menu items to the left */
   }
 
-  .admin-profile {
-    order: 2;
-    /* Keeps profile next to logo */
-  }
+
 }
 
 @media (max-width: 768px) {
@@ -479,9 +451,7 @@ nav {
     right: 25px;
   }
 
-  .admin-profile {
-    display: none;
-  }
+
 
   .container {
     padding: 0 10px;
@@ -739,4 +709,133 @@ nav {
   color: var(--primary-accent);
 }
 
+/* Table responsive wrapper */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-dark);
+}
 
+/* Appointments table specific styling */
+#appointmentsTable {
+  min-width: 1200px; /* Ensures table doesn't compress too much */
+}
+
+#appointmentsTable th,
+#appointmentsTable td {
+  min-width: 100px;
+  padding: 12px 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Specific column widths for appointments */
+#appointmentsTable th:nth-child(1), /* Sr.no */
+#appointmentsTable td:nth-child(1) {
+  min-width: 60px;
+}
+
+#appointmentsTable th:nth-child(9), /* Message */
+#appointmentsTable td:nth-child(9) {
+  min-width: 150px;
+  max-width: 200px;
+}
+
+#appointmentsTable th:nth-child(11), /* Actions */
+#appointmentsTable td:nth-child(11) {
+  min-width: 120px;
+}
+
+/* Order modal scrollable styling */
+#orderModal .popup-content {
+  max-height: 90vh;
+  overflow-y: auto;
+  max-width: 90vw;
+  width: 100%;
+}
+
+/* Mobile scrolling for order modal */
+@media (max-width: 768px) {
+  #orderModal .popup-content {
+    max-height: 85vh;
+    overflow-y: auto;
+    width: 95%;
+    max-width: none;
+    padding: 15px;
+  }
+  
+  #orderModal table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  #orderModal table thead,
+  #orderModal table tbody,
+  #orderModal table tr {
+    display: block;
+  }
+  
+  #orderModal table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  #orderModal table tr {
+    border: 1px solid var(--border-light);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  #orderModal table td {
+    border: none;
+    display: block;
+    text-align: right;
+    padding: 8px 0;
+    position: relative;
+  }
+  
+  #orderModal table td:before {
+    content: attr(data-label) ": ";
+    position: absolute;
+    left: 0;
+    width: 50%;
+    text-align: left;
+    font-weight: bold;
+    color: var(--primary-accent);
+  }
+  
+  /* Orders table mobile scrolling */
+  #ordersTable {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+  
+  .table-container table {
+    min-width: 100%;
+  }
+  
+  /* Appointments table mobile fix */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  #appointmentsTable {
+    min-width: 800px;
+  }
+}
