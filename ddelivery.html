@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -236,6 +237,24 @@ h2 {
   <div id="result"></div>
 
   <script>
+    function validate()
+    {
+        fetch(`${Backend_URL}/verifyDel`,{credentials:"include"})
+        .then(res=>res.json())
+        .then(data=>{
+            if(!data)
+        {
+            alert("Not authorized !");
+            window.location.href="/register.html";
+
+        }
+        })
+        .catch(err=>{
+            console.log("errorrrr : :",err);
+            
+        })
+
+    }
     document.getElementById("verifyForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(e.target);
