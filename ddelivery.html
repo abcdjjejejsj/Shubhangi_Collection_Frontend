@@ -239,9 +239,11 @@ h2 {
   <script>
     function validate()
     {
-        fetch(`${Backend_URL}/verifyDel`,{credentials:"include"})
+      console.log("validating.....);
+        fetch(`https://shubhangi-collection-backend.onrender.com/verifyDel`,{credentials:"include"})
         .then(res=>res.json())
         .then(data=>{
+          console.log("data: ",data);
             if(!data)
         {
             alert("Not authorized !");
