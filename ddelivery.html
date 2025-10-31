@@ -244,7 +244,7 @@ h2 {
         .then(res=>res.json())
         .then(data=>{
           console.log("data: ",data);
-            if(data==false)
+            if(!data.status)
         {
             alert("Not authorized !");
             window.location.href="/register.html";
