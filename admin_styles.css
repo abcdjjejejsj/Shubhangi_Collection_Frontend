@@ -838,4 +838,78 @@ nav {
   #appointmentsTable {
     min-width: 800px;
   }
+  
+  /* Customer table mobile fixes */
+  #customersTable {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+  }
+  
+  #customersTable thead {
+    display: none;
+  }
+  
+  #customersTable tbody,
+  #customersTable tr,
+  #customersTable td {
+    display: block;
+    width: 100%;
+  }
+  
+  #customersTable tr {
+    margin-bottom: 15px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  #customersTable td {
+    text-align: right;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+  }
+  
+  #customersTable td:last-child {
+    border-bottom: none;
+  }
+  
+  #customersTable td::before {
+    content: attr(data-label) ": ";
+    position: absolute;
+    left: 0;
+    width: 50%;
+    text-align: left;
+    font-weight: bold;
+    color: var(--primary-accent);
+  }
+  
+  /* Order modal mobile fixes */
+  #orderModal .popup-content {
+    width: 95vw;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 10px;
+    margin: 5px;
+  }
+  
+  #orderModal .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  #orderModal table {
+    min-width: 100%;
+    font-size: 0.8rem;
+  }
+  
+  #orderModal table th,
+  #orderModal table td {
+    padding: 4px 2px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
 }
