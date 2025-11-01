@@ -52,10 +52,7 @@
                     <li><a href="https://shubhangi-collection-backend.onrender.com/api/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
                 </ul>
             </nav>
-            <div class="admin-profile">
-                <span>Admin User</span>
-                <img src="https://via.placeholder.com/40" alt="Admin Profile Picture">
-            </div>
+
         </header>
 
         <main class="container">
@@ -614,17 +611,19 @@
             <input type="hidden" id="del_code">
 
             <h4 style="margin-bottom:10px;">Ordered Items</h4>
-            <table border="2">
-                <thead>
-                    <tr id="row">
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Price</th>
-                        <th>Image</th>
-                    </tr>
-                </thead>
-                <tbody id="orderItemsBody"></tbody>
-            </table>
+            <div class="table-container">
+                <table border="2">
+                    <thead>
+                        <tr id="row">
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderItemsBody"></tbody>
+                </table>
+            </div>
 
             <div class="order-summary" style="margin-top:20px; text-align:left;">
                 <p><strong>Total:</strong> ₹<span id="orderTotal"></span></p>
