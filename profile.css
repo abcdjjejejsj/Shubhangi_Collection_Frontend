@@ -448,7 +448,7 @@ a:hover {
     .toggle-Link {
         display: block;
         position: absolute;
-        top: 25px;
+        top: 22px;
         right: 70px;
         font-size: 24px;
         z-index: 1100;
@@ -542,7 +542,7 @@ a:hover {
         font-size: 1rem;
     }
     .toggle-Link {
-        top: 20px;
+        top: 22px;
         right: 70px;
         font-size: 22px;
     }
@@ -686,7 +686,7 @@ a:hover {
     .toggle-Link {
         display: block;
         position: absolute;
-        top: 25px;
+        top: 22px;
         right: 70px;
     }
 }
