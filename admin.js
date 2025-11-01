@@ -244,7 +244,7 @@ function loadTableData() {
             const price = parseFloat(document.getElementById('newProductPrice').value).toFixed(2);
             const stock = document.getElementById('newProductStock').value;
             const trend = document.getElementById('trend').value;
-            const productImage = document.getElementById('newProductImage').files[0];
+            const productImages = document.getElementById('newProductImages').files;
 
             const formData = new FormData();
             formData.append("Product_ID", productId);
@@ -253,7 +253,10 @@ function loadTableData() {
             formData.append("Product_Price", price);
             formData.append("Product_Stock", stock);
             formData.append("Product_Trend", trend);
-            formData.append("Product_Image", productImage);
+            // Add multiple images
+            for (let i = 0; i < productImages.length; i++) {
+                formData.append("Product_Images", productImages[i]);
+            }
 
             fetch(`${Backend_URL}/product/updateData`, {
               method: "POST",
@@ -1734,4 +1737,3 @@ function updateOrderStatus() {
 
 
 }
-
