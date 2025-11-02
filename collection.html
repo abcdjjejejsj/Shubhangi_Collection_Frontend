@@ -230,7 +230,7 @@ footerLinks.forEach(link => {
                         allProducts = data;
 
                         if (catQuery) {
-                            renderProducts(allProducts.filter(p => p.Product_Category === catQuery));
+                            renderProducts(allProducts.filter(p => p.Product_Category == catQuery));
                         } else {
                             renderProducts(allProducts);
                         }
