@@ -220,11 +220,11 @@ footerLinks.forEach(link => {
             loadCategories();
 
             // ----------------- Load Products -----------------
-           /* 
+           
            original function
            function loadProducts() {
                 const params = new URLSearchParams(window.location.search);
-                const catQuery = params.get("category");
+                const catQuery = params.get("category").toString().toLowerCase().trim();
                 console.log("reading from cats : ",catQuery);
                 fetch(`${Backend_URL}/product/getTableData`)
                     .then(res => res.json())
@@ -232,7 +232,7 @@ footerLinks.forEach(link => {
                         allProducts = data;
 
                         if (catQuery) {
-                            renderProducts(allProducts.filter(p => p.Product_Category == catQuery));
+                            renderProducts(allProducts.filter(p => p.Product_Category.toString().toLowerCase().trim() === catQuery));
                         } else {
                             renderProducts(allProducts);
                         }
@@ -240,7 +240,7 @@ footerLinks.forEach(link => {
                     .catch(err => console.log("Product fetch error:", err));
             }
 
-*/
+/*
             function loadProducts() {
     const params = new URLSearchParams(window.location.search);
     const rawCat = params.get("category");
@@ -310,6 +310,7 @@ footerLinks.forEach(link => {
             showPopup("Unable to load products. Check console for details.");
         });
 }
+*/
 
             loadProducts();
 
