@@ -224,7 +224,9 @@ footerLinks.forEach(link => {
           // original function
            function loadProducts() {
                 const params = new URLSearchParams(window.location.search);
-                const catQuery = params.get("category").toString().toLowerCase().trim();
+                // const catQuery = params.get("category").toString().toLowerCase().trim();
+               const rawCat = params.get("category");
+               const catQuery = rawCat ? rawCat.toString().toLowerCase().trim() : null;
                 console.log("reading from cats : ",catQuery);
                 fetch(`${Backend_URL}/product/getTableData`)
                     .then(res => res.json())
