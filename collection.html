@@ -220,7 +220,9 @@ footerLinks.forEach(link => {
             loadCategories();
 
             // ----------------- Load Products -----------------
-            function loadProducts() {
+           /* 
+           original function
+           function loadProducts() {
                 const params = new URLSearchParams(window.location.search);
                 const catQuery = params.get("category");
                 console.log("reading from cats : ",catQuery);
@@ -237,6 +239,77 @@ footerLinks.forEach(link => {
                     })
                     .catch(err => console.log("Product fetch error:", err));
             }
+
+*/
+            function loadProducts() {
+    const params = new URLSearchParams(window.location.search);
+    const rawCat = params.get("category");
+    const catQuery = rawCat ? rawCat.toString().toLowerCase().trim() : null;
+
+    console.log("🔎 category param raw:", rawCat);
+    console.log("🔎 category param normalized:", catQuery);
+
+    // Quick runtime checks
+    if (typeof Backend_URL === "undefined") {
+        console.error("❌ Backend_URL is undefined on this page. Ensure ./config.js defines Backend_URL globally.");
+        showPopup("Internal error: backend not configured. Check console for details.");
+        return;
+    }
+
+    fetch(`${Backend_URL}/product/getTableData`)
+        .then(res => {
+            if (!res.ok) throw new Error(`Fetch failed: ${res.status} ${res.statusText}`);
+            return res.json();
+        })
+        .then(data => {
+            console.log("✅ fetched products count:", Array.isArray(data) ? data.length : "not-array", data);
+            allProducts = Array.isArray(data) ? data : [];
+
+            // Log distinct Product_Category values to debug mismatches
+            const categoriesSeen = [...new Set(allProducts.map(p => {
+                try {
+                    return (p.Product_Category || "").toString().toLowerCase().trim();
+                } catch (e) {
+                    return "";
+                }
+            }))].filter(Boolean);
+            console.log("ℹ️ product categories seen:", categoriesSeen);
+
+            let toRender = allProducts;
+
+            if (catQuery) {
+                toRender = allProducts.filter(p => {
+                    // Defensive extraction of category string
+                    let pc = p.Product_Category;
+                    if (Array.isArray(pc)) pc = pc[0];
+                    if (pc == null) return false;
+                    try {
+                        return pc.toString().toLowerCase().trim() === catQuery;
+                    } catch (e) {
+                        return false;
+                    }
+                });
+
+                console.log(`🔎 filtered products for "${catQuery}":`, toRender.length);
+            }
+
+            if (!toRender.length) {
+                const productSection = document.getElementById("productSection");
+                productSection.innerHTML = `
+                    <div class="no-results">
+                        <h3>No products found</h3>
+                        <p>We couldn't find products for <strong>${rawCat || "this selection"}</strong>. Try removing filters or check other categories.</p>
+                    </div>
+                `;
+            } else {
+                renderProducts(toRender);
+            }
+        })
+        .catch(err => {
+            console.error("Product fetch error:", err);
+            showPopup("Unable to load products. Check console for details.");
+        });
+}
 
             loadProducts();
 
