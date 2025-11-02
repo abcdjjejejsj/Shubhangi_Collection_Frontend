@@ -223,7 +223,7 @@ footerLinks.forEach(link => {
             function loadProducts() {
                 const params = new URLSearchParams(window.location.search);
                 const catQuery = params.get("category");
-
+                console.log("reading from cats : ",catQuery);
                 fetch(`${Backend_URL}/product/getTableData`)
                     .then(res => res.json())
                     .then(data => {
