@@ -339,7 +339,8 @@ footerLinks.forEach(link => {
                             .then(res => { return res.text() })
                             .then(data => {
                                 console.log("data :",data);
-                                if (data != "success") {
+                                console.log("updated");
+                                if (!data.success) {
                                     showPopup("Please Log in to add in wishlist !");
                                     setTimeout(() => {
                                         window.open("https://shubhangi-collection.vercel.app/register.html");
