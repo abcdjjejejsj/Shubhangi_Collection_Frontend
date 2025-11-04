@@ -336,7 +336,7 @@ footerLinks.forEach(link => {
                         fetch(`${Backend_URL}/verifyUser`,
                               {credentials: "include"}
                              )
-                            .then(res => { return res.text() })
+                            .then(res => { return res.json() })
                             .then(data => {
                                 console.log("data :",data);
                                 console.log("updated2");
