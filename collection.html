@@ -421,7 +421,7 @@ footerLinks.forEach(link => {
                     btn.textContent = "Add to Cart";
                     btn.addEventListener("click", () => {
                         fetch(`${Backend_URL}/verifyUser`,{credentials: "include"})
-                            .then(res => { return res.json })
+                            .then(res => { return res.json() })
                             .then(data => {
                                 if (data.success!=true) {
                                     showPopup("Please Log in to add in cart !");
