@@ -338,10 +338,11 @@ footerLinks.forEach(link => {
                              )
                             .then(res => { return res.text() })
                             .then(data => {
+                                console.log("data :",data);
                                 if (data != "success") {
                                     showPopup("Please Log in to add in wishlist !");
                                     setTimeout(() => {
-                                        window.open("/register");
+                                        window.open("https://shubhangi-collection.vercel.app/register.html");
                                     }, 3000);
                                 } else {
                                     // Toggle between outline and solid
