@@ -154,7 +154,9 @@ footerLinks.forEach(link => {
             })
             .then(res => res.text())
             .then(res => showPopup(res))
-            .catch(err => { showPopup("Unable to add in cart!") })
+            .catch(err => { 
+              console.log("cart error :",err);
+              showPopup("Unable to add in cart!") })
           })
             
           card.append(btn);
