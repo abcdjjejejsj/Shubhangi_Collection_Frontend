@@ -109,6 +109,7 @@ footerLinks.forEach(link => {
 
     async function loadWishlist() {
       try {
+        console.log("updated");
         const response = await fetch(`${Backend_URL}/wish/wishProducts`,{credentials: "include"}); // use your correct API
         const products = await response.json();
 
@@ -148,7 +149,7 @@ footerLinks.forEach(link => {
             fetch(`${Backend_URL}/cart/add`, {
               method: "POST",
               headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ Product: product.Product_Name, quantity: 1 }),
+              body: JSON.stringify({ Product: product.Name, quantity: 1 }),
               credentials: "include"
 
             })
